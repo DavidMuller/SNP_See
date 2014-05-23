@@ -1,0 +1,29 @@
+{% extends "SNP_Feature_View/base.html" %}
+{% block title %}SNP See Home Page{% endblock title %}
+{% block content %}
+<body>
+      <div class="jumbotron">
+        <h1>SNP See</h1>
+        <p class="lead">A simple way to highlight portions of the human genome that affect you.</p>
+        <p><a class="btn btn-lg btn-success" href="{% url 'feature_view_home' %}">Try it out!</a></p>
+      </div>
+
+      <div class="row marketing">
+        <div class="col-lg-12">
+          <h4>What part of the internet did I get to?</h4>
+          <p>You've reached a bioinformatics pocket of the web.  We hope you'll take a chance to learn a little bit about your genome; no experience--or perosnal genetic information--required.<p>
+
+          <h4>How do I get started?</h4>
+          <a class="btn btn-lg btn-success" href="{% url 'feature_view_home' %}">Try it out!</a>
+          <p></p>
+            
+          <h4>Can I leave?</h4>
+        <a class="btn btn-lg btn-default" href="https://www.youtube.com/watch?v=MOLEixQom6o">Sure, we'll take you away</a>
+    </div>
+      </div>
+    </div> <!-- /container -->
+    </body>
+</html>
+
+
+{% endblock content %}

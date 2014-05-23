@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="{% static "bootstrap-3.1.1-dist/css/bootstrap.min.css" %}">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{% static "bootstrap-3.1.1-dist/css/jumbotron-narrow.css" %}">
+    <link rel="stylesheet" href="{% static "bootstrap-3.1.1-dist/css/custom.css" %}">
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static "bootstrap-3.1.1-dist/js/bootstrap.min.js" %}"></script>
+
+    <title>{% block title %}My amazing site{% endblock %}</title>
+</head>
+
+<body>
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+            <li class="active"><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+            <li><a  class="btn btn-md btn-success" href="{% url 'feature_view_home' %}">SNP See</a></li>
+        </ul>
+        <h3 class="text-muted">SNP See</h3>
+    </div>
+    {% block content %}
+    {% block Feature_View_Nav %} {% endblock Feature_View_Nav %}
+    {% block SNP_Tabs %} {% endblock SNP_Tabs %}
+    {% block Current_File %} {% endblock Current_File %}
+    {% endblock content %}
+</body>
+</html>
