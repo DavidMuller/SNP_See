@@ -1,0 +1,80 @@
+{% extends "SNP_Feature_View/base.html" %}
+{% load static %}
+{% block title %}{{ phenotype.phenotype }} {% endblock title %}
+{% block content %}
+<html lang="en">
+<head>
+    <title> {{ phenotype.phenotype}} </title>
+    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+</head>
+
+<body>
+    <div id="content">
+        <h2> {{ phenotype.phenotype }} </h2>
+        <p>Here, we diagram the SNP that determines {{ phenotype.phenotype}} reaction.</p>
+        <canvas id="e" width="800" height="150"></canvas>
+        <script src="{% static "SNP_Feature_View/SNPCanvasDisplay.js" %}"></script>
+        <script> 
+            $(document).ready(function () {
+                var leftFlank ="CGAGTACGGGCTGCAGGCATACACT";
+                var rightFlank = "AAGTGAAAACTGTGAGTGTGGGACC";
+                var canvas = document.getElementById("e");
+                displaySNPSequence(canvas, leftFlank, rightFlank, "A", "Parent 1", 0, 75);
+                displaySNPSequence(canvas, leftFlank, rightFlank, "G", "Parent 2", 0, 125);
+            });
+        </script>
+    </div>
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" id="myTab">
+  <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+  <li><a href="#profile" data-toggle="tab">Profile</a></li>
+  <li><a href="#messages" data-toggle="tab">Messages</a></li>
+  <li><a href="#settings" data-toggle="tab">Settings</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <div class="tab-pane active" id="home"><p>home again home again</p></div>
+    <div class="tab-pane" id="profile"><p> profile yo</p></div>
+    <div class="tab-pane" id="messages"><p> messy messages</p></div>
+    <div class="tab-pane" id="settings"><p> setty settings</p></div>
+</div>
+<script>
+    $(function () {
+        $('#myTab a[href="#profile"]').tab('show') // Select tab by name
+
+  })
+</script>
+
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">About Your Data</a></li>
+            <li><a href="#tabs-2">About Alcohol Flush</a></li>
+            <li><a href="#tabs-3">Additional Resources</a></li>
+        </ul>
+        <div id="tabs-1">
+            <p>AG at this position in the genome, indicates a flush response to alcohol.<p> 
+        </div>
+        <div id="tabs-2">
+            <p>Alcohol flush is often colloquially referred to as 'Asian Glow.' </p>
+            <p>AG, as above, indicates this individual will experience alcohol flush.</p> 
+            <p>AA, would also indicate alcohol flush reaction. </p>
+            <p>GG, no flush reaction.</p> 
+        </div>
+        <div id="tabs-3">
+            <p>Visit <a href="http://www.omim.org/entry/610251"> the OMIM database entry for Acute Alcohol Sensitivity</a> for more detailed technical information.</p>
+        </div>
+    </div>
+       <script src="{% static "SNP_Feature_View/TabbedInformation.js" %}"></script>
+    <script>
+        $(document).ready(function () {
+            var tabs = document.getElementById("tabs");
+            displayInformationTabs(tabs); 
+        });
+    </script> 
+</body>
+</html>
+{% endblock content %}
+

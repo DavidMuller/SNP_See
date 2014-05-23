@@ -1,0 +1,46 @@
+{% extends "SNP_Feature_View/base.html" %}
+{% load staticfiles %}
+{% block title %}SNP See Not Enough Data{% endblock title %}
+{% block content %}
+<body>
+<body>
+
+  {% block Feature_View_Nav %}
+
+
+    <div class="bs-example">
+      <div class="btn-group btn-group-justified">
+        <a class="btn btn-default" role="button" href="{% url 'feature_view_sample_data_selector' %}">Switch Data File</a>
+        <a class="btn btn-default" role="button" href="{% url 'feature_view_select_phenotypes' %}">View a Different Phenotype</a>
+      </div>
+
+
+{% endblock Feature_View_Nav %}
+      <div class="page-header">
+          <h2>Heads up!</h2>
+            <div class="panel panel-warning">
+              <div class="panel-heading">
+                <h3 class="panel-title">Heads up with {{ file_name }}</h3>
+              </div>
+              <div class="panel-body">
+                We've looked through {{ file_name }}, but it seems {{ file_name }} actually doesn't contain the base calls necessary for us to determine {{ phenotype.phenotype }}.  If you're interested in learning about {{ phenotype.phenotype }}, you can try using a different file.  Select one <a href="{% url 'feature_view_sample_data_selector' %}">here</a>.  Otherwise, <a href="{% url 'feature_view_select_phenotypes' %}">choose another phenotype to view</a>.
+              </div>
+            </div>
+    </div>
+    </body>
+</html>
+{% block Current_File %} 
+<div class="spacer50"></div>
+
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">Where is this data coming from?</h3>
+  </div>
+  <div class="panel-body">
+    You're looking at information gleaned from this {{ file_size }} file: {{ file_name }}. If you'd like to see data for a different file, select one from <a href="{% url 'feature_view_sample_data_selector' %}">here</a>.
+  </div>
+</div>
+{% endblock Current_File %}
+
+
+{% endblock content %}

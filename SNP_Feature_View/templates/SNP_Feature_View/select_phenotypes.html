@@ -1,0 +1,32 @@
+{% extends "SNP_Feature_View/base.html" %}
+{% load staticfiles %}
+{% block title %}SNP See Select Phenotypes{% endblock title %}
+{% block content %}
+<html>
+<body>
+
+  {% block Feature_View_Nav %}
+
+  <div class="bs-example">
+    <div class="btn-group btn-group-justified">
+      <a class="btn btn-default" role="button" href="{% url 'feature_view_sample_data_selector' %}">Switch Data File</a>
+      <a class="btn btn-default" role="button" href="{% url 'feature_view_select_phenotypes' %}">View a Different Phenotype</a>
+    </div>
+
+    {% endblock Feature_View_Nav %}
+    <div class="page-header">
+      <h2>Here are some of the viewable traits:</h2>
+      <h3>Phenotypes:</h3>
+      <ul class="list-group">
+        {% for choice in phenotypes %}
+        <li class="list-group-item"> 
+          <h4 class="list-group-item-heading"><a href="{% url 'feature_view' choice.id %}"> {{ choice.phenotype }} </a> </h4>
+          <p class="list-group-item-text"> {{ choice.about_phenotype_text | safe }} </p>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    {% endblock content %}
+</body>
+</html>

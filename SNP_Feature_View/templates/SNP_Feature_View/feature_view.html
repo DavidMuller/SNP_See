@@ -1,0 +1,136 @@
+{% extends "SNP_Feature_View/base.html" %}
+{% load static %}
+{% block title %}{{ phenotype.phenotype }} {% endblock title %}
+{% block content %}
+<html lang="en">
+<head>
+  <title> {{ phenotype}} </title>
+</head>
+
+<body>
+  <div id="content">
+{% block Feature_View_Nav %}
+
+
+    <div class="bs-example">
+      <div class="btn-group btn-group-justified">
+        <a class="btn btn-default" role="button" href="{% url 'feature_view_sample_data_selector' %}">Switch Data File</a>
+        <a class="btn btn-default" role="button" href="{% url 'feature_view_select_phenotypes' %}">View a Different Phenotype</a>
+      </div>
+
+
+{% endblock Feature_View_Nav %}
+
+
+        <h2> {{ phenotype }} </h2>
+        <p>Here, we diagram the SNP that determines the following phenotype: {{ phenotype.phenotype}}<p>
+
+<div id="myCarousel" class="carousel" data-ride="carousel" style="width: 700px; 400px; margin: 0 auto" >
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="item active">
+            <div class="container">
+
+                  <canvas id="sequence" width="700" height="200"></canvas>
+                  <script src="{% static "SNP_Feature_View/SNPCanvasDisplay.js" %}"></script>
+                  <script> 
+                  $(document).ready(function () {
+                      var leftFlank = "{{ sf.left_flank_25_chars }}";
+                      var rightFlank = "{{ sf.right_flank_25_chars }}";
+                      var genotype = "{{ snp_chars }}" 
+                      var bigChar1 = genotype[0] 
+                      var bigChar2 = genotype[1] 
+                      var canvas = document.getElementById("sequence");
+                      displaySNPSequence(canvas, leftFlank, rightFlank, bigChar1, "Parent 1", 0, 75);
+                      displaySNPSequence(canvas, leftFlank, rightFlank, bigChar2, "Parent 2", 0, 125);
+                  });
+                </script> 
+          </div>
+        </div>
+
+          
+          <div class="item">
+              <img src="{% static "SNP_Feature_View/white_700_by_200.jpg" %}" alt="some_text">   
+            <div class="container">
+              <div class="carousel-caption">
+                <h2>What you're looking at:</h2>
+                <p>In the previous image, you see a number of letters including some larger blue characters.  Those letters represent bases (A, T, C or G) that appear in the human genome.  You receive one set of bases from your mother, and one set from your father.  Traits that are determined by "Single Nucleotide Polymorphisms" (SNPs), are determined just by one base. We've highlighted the appropriate bases--one from mom and one from dad--that determine {{ phenotype.phenotype }}.</p>
+              </div>
+            </div>
+          </div>
+
+
+
+      </div>
+
+
+
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-arrow-left"></span></a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-arrow-right"></span></a>
+  </div><!-- /.carousel -->
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.carousel').carousel({
+      interval:0 
+    })
+  });
+</script>
+
+<div class="spacer30"></div>
+
+{% block SNP_Tabs %}
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" id="myTab">
+  <li class="active"><a href="#morphology" data-toggle="tab">About {{ file_name }}'s Data</a></li>
+  <li><a href="#phenotype" data-toggle="tab">About {{ phenotype.phenotype }} SNP</a></li>
+  <li><a href="#externalResources" data-toggle="tab">How it Works</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <div class="tab-pane active" id="morphology">
+        <p></p>
+        <p>{{ pheno_geno_morphology.morphology | safe }}<p> 
+    </div>
+    <div class="tab-pane" id="phenotype">
+            <p></p>
+            <p>{{ phenotype.about_phenotype_text | safe}}<p> 
+        </div>
+        <div class="tab-pane" id="externalResources">
+            <p></p>
+            <p>{{ phenotype.external_resources | safe }}<p> 
+        </div>
+</div>
+<script>
+    $(function () {
+        $('#myTab a[href="#profile"]').tab('show') // Select tab by name
+
+  })
+</script>
+
+{% endblock SNP_Tabs %}
+
+{% block Current_File %} 
+
+<div class="spacer50"></div>
+
+
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">Where is this data coming from?</h3>
+  </div>
+  <div class="panel-body">
+    You're looking at information gleaned from this {{ file_size }} file: {{ file_name }}. If you'd like to see data for a different file, select one from <a href="{% url 'feature_view_sample_data_selector' %}">here</a>.
+  </div>
+</div>
+
+{% endblock Current_File %}
+
+{% endblock content %}
+</body>
+</html>

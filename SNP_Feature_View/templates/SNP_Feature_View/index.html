@@ -1,92 +1,29 @@
-<!DOCTYPE html>
-<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/base/jquery-ui.css" type="text/css" media="all" /> 
-<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
-
-
-<html lang="en">
-<head>
-    <title>Test SNP Feature View</title>
-</head>
-
+{% extends "SNP_Feature_View/base.html" %}
+{% block title %}SNP See Home Page{% endblock title %}
+{% block content %}
 <body>
-    <div id="content">
-        <h2>Alcohol Flush</h2>
-        <p>Here, we diagram the SNP that determines Alcohol Flush reaction.</p>
-        <canvas id="e" width="800" height="150"></canvas>
-        <script> 
-            var displaySNPSequence = function(leftFlank, rightFlank, snp, parentNum, xPos, yPos) {
-                var canvas = document.getElementById("e");
-                var context = canvas.getContext("2d");
-                var flankFont = "bold 16px Arial";
-                var flankColor = "#333";
-                var snpFont = "bold 38px Arial";
-                var snpColor = "blue";
-                var parentFont = "bold 16px Arial";
-                var parentColor = "#900000";
-                var currentXPos = xPos;
-                    
-                context.font= flankFont;
-                context.fillStyle = flankColor; 
-                var threeDotWidth = context.measureText("...").width;
-                context.fillText("...", xPos, yPos); 
-                currentXPos += threeDotWidth;
+      <div class="jumbotron">
+        <h1>SNP See</h1>
+        <p class="lead">A simple way to highlight portions of the human genome that affect you.</p>
+        <p><a class="btn btn-lg btn-success" href="{% url 'feature_view_home' %}">Try it out!</a></p>
+      </div>
 
-                var lFlankWidth = context.measureText(leftFlank).width;
-                context.fillText(leftFlank, currentXPos, yPos);
-                currentXPos += lFlankWidth;
+      <div class="row marketing">
+        <div class="col-lg-12">
+          <h4>What part of the internet did I get to?</h4>
+          <p>You've reached a bioinformatics pocket of the web.  We hope you'll take a chance to learn a little bit about your genome; no experience--or perosnal genetic information--required.<p>
 
-                context.font = snpFont; 
-                context.fillStyle = snpColor;
-                var bigCharWidth = context.measureText(snp).width;
-                context.fillText(snp, currentXPos, yPos);
-                currentXPos += bigCharWidth; 
-                
-                context.font = flankFont; 
-                context.fillStyle = flankColor; 
-                var rFlankWidth = context.measureText(rightFlank).width;
-                context.fillText(rightFlank, currentXPos, yPos); 
-                currentXPos += rFlankWidth;
-                
-                context.fillText("...", currentXPos, yPos); 
-                currentXPos += threeDotWidth;
-
-                context.font = parentFont 
-                context.fillStyle = parentColor 
-                context.fillText("     " + parentNum, currentXPos, yPos);  
-            };
-
-            var leftFlank ="CGAGTACGGGCTGCAGGCATACACT"
-            var rightFlank = "AAGTGAAAACTGTGAGTGTGGGACC"
-            displaySNPSequence(leftFlank, rightFlank, "A", "Parent 1", 0, 75)
-            displaySNPSequence(leftFlank, rightFlank, "G", "Parent 2", 0, 125)
-        </script>
+          <h4>How do I get started?</h4>
+          <a class="btn btn-lg btn-success" href="{% url 'feature_view_home' %}">Try it out!</a>
+          <p></p>
+            
+          <h4>Can I leave?</h4>
+        <a class="btn btn-lg btn-default" href="https://www.youtube.com/watch?v=MOLEixQom6o">Sure, we'll take you away</a>
     </div>
-    <div id="tabs">
-        <ul>
-            <li><a href="#tabs-1">About Your Data</a></li>
-            <li><a href="#tabs-2">About Alcohol Flush</a></li>
-            <li><a href="#tabs-3">Additional Resources</a></li>
-        </ul>
-        <div id="tabs-1">
-            <p>AG at this position in the genome, indicates a flush response to alcohol.<p> 
-        </div>
-        <div id="tabs-2">
-            <p>Alcohol flush is often colloquially referred to as 'Asian Glow.' </p>
-            <p>AG, as above, indicates this individual will experience alcohol flush.</p> 
-            <p>AA, would also indicate alcohol flush reaction. </p>
-            <p>GG, no flush reaction.</p> 
-        </div>
-        <div id="tabs-3">
-            <p>Visit <a href="http://www.omim.org/entry/610251"> the OMIM database entry for Acute Alcohol Sensitivity</a> for more detailed technical information.</p>
-        </div>
-    </div>
-    <script> 
-      $(document).ready(function () {
-
-        $("#tabs").tabs();
-
-    }); 
-    </script>
-</body>
+      </div>
+    </div> <!-- /container -->
+    </body>
 </html>
+
+
+{% endblock content %}

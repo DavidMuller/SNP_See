@@ -1,0 +1,33 @@
+{% extends "SNP_Feature_View/base.html" %}
+{% load staticfiles %}
+{% block title %}SNP See Under Construction{% endblock title %}
+{% block content %}
+<html>
+<body>
+
+  <div class="page-header">
+    <div class="panel panel-warning">
+      <div class="panel-heading">
+        <h3 class="panel-title">Heads up!</h3>
+      </div>
+      <div class="panel-body">
+        This feature is still under construction.  We're working on it!  
+      </div>
+    </div>
+
+
+    <div class="panel panel-warning">
+      <div class="panel-heading">
+        <h3 class="panel-title">Using VCF Files that aren't Provided as Samples...</h3>
+      </div>
+      <div class="panel-body">
+        The "I have my own VCF file" feature is under construction.... We'd like to allow you to view information from VCF files on your computer without uploading them in full--file uploads take a long time, and we don't like the idea of uploading vast quantities of personal genetic information.  Our envisioned solution for quickly and effictively viewing features in your personal VCF file requires reading huge files client-side with JavaScript's FileReader--we don't want you to have to run any additional software outside your browser.  We've found JavaScript's native FileReader to be unreliable for files in the 100s of megabytes, and so are working are building a more stable module using FileReader.  Questions or suggestions? <a href="{% url 'contact' %}">Contact Us</a>!  Otherwise go ahead and <a href="{% url 'feature_view_home' %}">try SNP See</a>. 
+      </div>
+    </div>
+  </div>
+
+</body>
+
+
+{% endblock content %}
+</html>
