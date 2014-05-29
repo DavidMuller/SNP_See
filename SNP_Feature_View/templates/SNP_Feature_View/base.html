@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+{% block header %}
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -35,6 +36,7 @@
         </ul>
         <h3 class="text-muted">SNP See</h3>
     </div>
+    {% endblock header %}
     {% block content %}
     {% block Feature_View_Nav %} {% endblock Feature_View_Nav %}
     {% block SNP_Tabs %} {% endblock SNP_Tabs %}
