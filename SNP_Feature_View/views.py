@@ -9,6 +9,7 @@ from SNP import parse_SNP_genotype, return_SNP_ID, SNP_Fetcher
 import os
 import pickle
 import vcf
+import copy
 
 def index(request):
     print settings.BASE_DIR
@@ -76,13 +77,23 @@ def feature_view_select_phenotypes(request):
     return render(request, 'SNP_Feature_View/select_phenotypes.html', context)
 
 
-def feature_view(request, phenotype_pk):
-    phenotype = Phenotype.objects.get(pk=phenotype_pk)
+def visual_browser(request, chromosome_num, highlight):
+    JBrowse_arg_string = ""
+    if highlight != "None" and chromosome_num != "None":
+        region = chromosome_num + ":" + highlight
+        JBrowse_arg_string = "&highlight=" + region + "&loc=" + region
+
+    file_name = request.session['SNPs']['file_name']
+    file_size = request.session['SNPs']['file_size']
+    context = {'file_name':file_name, 'file_size':file_size, 'JBrowse_arg_string':JBrowse_arg_string }
+    return render(request, 'SNP_Feature_View/visual_browser.html', context)
+
+
+def feature_view(request, phenotype):
+    phenotype = phenotype.replace("_", " ")
+    phenotype = Phenotype.objects.get(phenotype=phenotype)
     pheno_geno_morphology = Pheno_Geno_Morphology.objects.all().filter(phenotype__exact=phenotype)
     sf = SNP_Fetcher()
-
-    for key in request.session.keys():
-        print key,request.session[key]
 
     # loop through, see if we match on a genotype
     for row in pheno_geno_morphology:
@@ -91,23 +102,82 @@ def feature_view(request, phenotype_pk):
         if SNP_ID in request.session['SNPs']:
             if request.session['SNPs'][SNP_ID] == genotype:
                 snp = SNP.objects.get(SNP_ID__exact=SNP_ID)
+                
                 sf.set_SNP_fields(snp.fasta_sequence)
+
+                # IF WE'RE ON THE MINUS STRAND
+                """
+                temp_left = copy.deepcopy(sf.left_flank_25_chars)
+                sf.left_flank_25_chars = sf.right_flank_25_chars
+                sf.right_flank_25_chars = temp_left
+
+                sf.left_flank_25_chars = sf.left_flank_25_chars[::-1]
+                sf.right_flank_25_chars = sf.right_flank_25_chars[::-1]
+                """
+
+
+
                 file_name = request.session['SNPs']['file_name']
                 file_size = request.session['SNPs']['file_size']
 
                 context = {'file_name':file_name, 'file_size':file_size, 'phenotype': phenotype, 'pheno_geno_morphology':row, 'sf':sf, 'snp_chars':genotype}
                 return render(request, 'SNP_Feature_View/feature_view.html', context)
 
-    return feature_view_not_enough_data(request, phenotype_pk)
+    return feature_view_not_enough_data(request, phenotype)
 
 
-def feature_view_not_enough_data(request, phenotype_pk):
-    phenotype = Phenotype.objects.get(pk=phenotype_pk)
+def feature_view_within_visual_browser(request, phenotype):
+    phenotype = phenotype.replace("_", " ")
+    phenotype = Phenotype.objects.get(phenotype=phenotype)
+    pheno_geno_morphology = Pheno_Geno_Morphology.objects.all().filter(phenotype__exact=phenotype)
+    sf = SNP_Fetcher()
+
+    # loop through, see if we match on a genotype
+    for row in pheno_geno_morphology:
+        SNP_ID = return_SNP_ID(row.genotype)
+        genotype = parse_SNP_genotype(row.genotype)
+        if SNP_ID in request.session['SNPs']:
+            if request.session['SNPs'][SNP_ID] == genotype:
+                snp = SNP.objects.get(SNP_ID__exact=SNP_ID)
+                
+                sf.set_SNP_fields(snp.fasta_sequence)
+
+                # IF WE'RE ON THE MINUS STRAND
+                """
+                temp_left = copy.deepcopy(sf.left_flank_25_chars)
+                sf.left_flank_25_chars = sf.right_flank_25_chars
+                sf.right_flank_25_chars = temp_left
+
+                sf.left_flank_25_chars = sf.left_flank_25_chars[::-1]
+                sf.right_flank_25_chars = sf.right_flank_25_chars[::-1]
+                """
+
+
+
+                file_name = request.session['SNPs']['file_name']
+                file_size = request.session['SNPs']['file_size']
+
+                context = {'file_name':file_name, 'file_size':file_size, 'phenotype': phenotype, 'pheno_geno_morphology':row, 'sf':sf, 'snp_chars':genotype}
+                return render(request, 'SNP_Feature_View/feature_view_visual_browser.html', context)
+
+    return feature_view_within_visual_browser_not_enough_data(request, phenotype)
+
+
+
+def feature_view_not_enough_data(request, phenotype):
+    #phenotype = phenotype.replace("_", " ")
+    #phenotype = Phenotype.objects.get(phenotype=phenotype)
     file_name = request.session['SNPs']['file_name']
     context = {'file_name':file_name, 'phenotype': phenotype}
     return render(request, 'SNP_Feature_View/not_enough_data.html', context)
 
 
+def feature_view_within_visual_browser_not_enough_data(request, phenotype):
+    #phenotype = phenotype.replace("_", " ")
+    #phenotype = Phenotype.objects.get(phenotype=phenotype)
+    file_name = request.session['SNPs']['file_name']
+    context = {'file_name':file_name, 'phenotype': phenotype}
+    return render(request, 'SNP_Feature_View/not_enough_data_visual_browser.html', context)
 
 
 def sizeof_fmt(num):

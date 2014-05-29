@@ -2,14 +2,27 @@
 {% load staticfiles %}
 {% block title %}SNP See Feature View {% endblock title %}
 {% block content %}
-<body>
-<body>
-      <div class="jumbotron">
-        <h1>Trying out SNP See</h1>
-        <p class="lead">Glad you're going to give SNP See a shot.  Want to see some sample data?  Have your own VCF file?</p>
-        <a class="btn btn-lg btn-success" href="{% url 'feature_view_sample_data_selector' %}">Sample Data!</a>
-        <a class="btn btn-lg btn-success" href="{% url 'under_construction' %}">I have my own VCF File</a>
-      </div>
-</body>
-</html>
-{% endblock content %}
+
+		<h1>Trying out SNP See</h1>
+
+		<div class="jumbotron">
+			<h1>Sample Data</h1>
+
+			<p class="lead">Want to browse some sample data?</p>
+			<a class="btn btn-lg btn-success" href="{% url 'feature_view_sample_data_selector' %}">Sample Data!</a>
+		</div>
+
+
+		<div class="jumbotron">
+			<h1>Data Set</h1>
+			<p class="lead">Interested in the data set we've curated for browsing?</p>
+			<a class="btn btn-lg btn-primary" href="{% url 'feature_view_sample_data_selector' %}">Preliminary Data Set Characterization</a>
+		</div>
+
+		<div class="jumbotron">
+			<h1>Under Construction...</h1>
+			<p class="lead">Want to view your own data file?</p>
+			<a class="btn btn-lg btn-warning" href="{% url 'under_construction' %}">My Own Data</a>
+		</div>
+
+		{% endblock content %}

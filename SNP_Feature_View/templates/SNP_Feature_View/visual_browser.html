@@ -1,0 +1,41 @@
+{% extends "SNP_Feature_View/base.html" %}
+{% load static %}
+{% block title %} Visual Browser {% endblock title %}
+{% block content %}
+
+<div id="content">
+  {% block Feature_View_Nav %}
+
+
+  <div class="bs-example">
+    <div class="btn-group btn-group-justified">
+      <a class="btn btn-default" role="button" href="{% url 'feature_view_sample_data_selector' %}">Switch Data File</a>
+      <a class="btn btn-default" role="button" href="{% url 'visual_browser' None None %}">Visual Browser </a>
+      <a class="btn btn-default" role="button" href="{% url 'feature_view_select_phenotypes' %}">Browse as List</a>
+    </div>
+
+
+    {% endblock Feature_View_Nav %}
+
+
+    <h2> Visual Browser </h2>
+    <p>Below, is a browser containing four tracks: the human genome, human genes, common human SNPs, and, finally, SNPs that determine traits taken from SNP See's Internal Data set. <p>
+
+      <iframe style="border: 1px solid #505050;" src="{% static "JBrowse-1.11.4/index.html" %}?tracklist=0&overview=0&tracks=DNA,ReferenceGenes,snp138Common,SNPSee{{ JBrowse_arg_string }}" height="490" width="810"></iframe>
+
+
+      <div id="feature_view"></div>
+
+      {% block Current_File %} 
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">Where is this data coming from?</h3>
+        </div>
+        <div class="panel-body">
+          You're looking at information gleaned from this {{ file_size }} file: {{ file_name }}. If you'd like to see data for a different file, select one from <a target="_parent" href="{% url 'feature_view_sample_data_selector' %}">here</a>.
+        </div>
+      </div>
+      {% endblock Current_File %}
+
+      {% endblock content %}
+

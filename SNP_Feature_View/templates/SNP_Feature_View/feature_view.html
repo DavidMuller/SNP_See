@@ -2,21 +2,16 @@
 {% load static %}
 {% block title %}{{ phenotype.phenotype }} {% endblock title %}
 {% block content %}
-<html lang="en">
-<head>
-  <title> {{ phenotype}} </title>
-</head>
-
-<body>
   <div id="content">
 {% block Feature_View_Nav %}
 
 
-    <div class="bs-example">
-      <div class="btn-group btn-group-justified">
-        <a class="btn btn-default" role="button" href="{% url 'feature_view_sample_data_selector' %}">Switch Data File</a>
-        <a class="btn btn-default" role="button" href="{% url 'feature_view_select_phenotypes' %}">View a Different Phenotype</a>
-      </div>
+<div class="bs-example">
+  <div class="btn-group btn-group-justified">
+    <a class="btn btn-default" role="button" href="{% url 'feature_view_sample_data_selector' %}">Switch Data File</a>
+    <a class="btn btn-default" role="button" href="{% url 'visual_browser' None None %}">Visual Browser </a>
+    <a class="btn btn-default" role="button" href="{% url 'feature_view_select_phenotypes' %}">Browse as List</a>
+  </div>
 
 
 {% endblock Feature_View_Nav %}
@@ -59,13 +54,10 @@
             <div class="container">
               <div class="carousel-caption">
                 <h2>What you're looking at:</h2>
-                <p>In the previous image, you see a number of letters including some larger blue characters.  Those letters represent bases (A, T, C or G) that appear in the human genome.  You receive one set of bases from your mother, and one set from your father.  Traits that are determined by "Single Nucleotide Polymorphisms" (SNPs), are determined just by one base. We've highlighted the appropriate bases--one from mom and one from dad--that determine {{ phenotype.phenotype }}.</p>
+                <p>In the others slide, you see a number of letters including some larger blue characters.  Those letters represent bases (A, T, C or G) that appear in the human genome.  You receive one set of bases from your mother, and one set from your father.  Traits that are determined by "Single Nucleotide Polymorphisms" (SNPs), are determined just by one base. We've highlighted the appropriate bases--one from mom and one from dad--that determine {{ phenotype.phenotype }}.</p>
               </div>
             </div>
           </div>
-
-
-
       </div>
 
 
@@ -114,7 +106,19 @@
 </script>
 
 {% endblock SNP_Tabs %}
-
+        <div class="page-header">
+          <div class="panel panel-warning">
+            <div class="panel-heading">
+              <h3 class="panel-title">Zoom in!</h3>
+            </div>
+            <div class="panel-body">
+              If you'd like, zoom to this feature in the visual browser.  Some features have more than one zoom location because they are governed by more than one SNP.  Try any of them! 
+              <p> {% for snp in phenotype.associated_snps.all %}
+                <a href="{% url 'visual_browser' snp.chromosome_num snp.chromosome_pos_GRCh37%}"> Zoom to {{ phenotype }} ({{ snp.SNP_ID }}) </a>  
+                {% endfor %}
+              </p>
+            </div>
+          </div>
 {% block Current_File %} 
 
 <div class="spacer50"></div>
@@ -125,12 +129,10 @@
     <h3 class="panel-title">Where is this data coming from?</h3>
   </div>
   <div class="panel-body">
-    You're looking at information gleaned from this {{ file_size }} file: {{ file_name }}. If you'd like to see data for a different file, select one from <a href="{% url 'feature_view_sample_data_selector' %}">here</a>.
+    You're looking at information gleaned from this {{ file_size }} file: {{ file_name }}. If you'd like to see data for a different file, select one from <a target="_parent" href="{% url 'feature_view_sample_data_selector' %}">here</a>.
   </div>
 </div>
 
 {% endblock Current_File %}
 
 {% endblock content %}
-</body>
-</html>

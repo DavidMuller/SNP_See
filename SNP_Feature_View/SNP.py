@@ -31,7 +31,7 @@ class SNP_Fetcher:
         self.left_flank = None
         self.right_flank = None
         self.left_flank_25_chars = None
-        self.left_flank_25_chars = None
+        self.right_flank_25_chars = None
         self.SNP = None
         self.SNP_pos = None
         self.SNP_Fasta_string= None
@@ -71,15 +71,9 @@ class SNP_Fetcher:
         """Given ONE Fasta sequence as a string, set SNP's field's."""
         fasta_file = StringIO.StringIO(fasta_string)
         record = SeqIO.read(fasta_file, "fasta")
-        print dir(record)
         self.SNP_pos = self.find_SNP_pos_in_seqio_record(record)
         self.left_flank = record.seq[0:self.SNP_pos - 1]
         self.SNP = record.seq[self.SNP_pos-1]
         self.right_flank = record.seq[self.SNP_pos:]
-        self.left_flank_25_chars = record.seq[-25:]
-        self.right_flank_25_chars = record.seq[-25:]
-
-
-Entrez.email = "dmuller@ucsd.edu"
-a = Entrez.efetch(db="snp", id="rs671", rettype="uilist", retmode="text")
-print a.read()
+        self.left_flank_25_chars = self.left_flank[-25:]
+        self.right_flank_25_chars = self.right_flank[0:25]

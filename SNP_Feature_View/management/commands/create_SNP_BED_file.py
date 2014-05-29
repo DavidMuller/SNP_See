@@ -24,7 +24,8 @@ class BEDFileGenerator():
 		all_SNPs = SNP.objects.all()
 		with open(self.file_path, 'w') as handle:
 			for s in all_SNPs:
-				chrom_num = str(s.chromosome_num)
+				chrom_num = 'chr' + str(s.chromosome_num)
 				chrom_pos = str(s.chromosome_pos_GRCh37)
-				BED_line = chrom_num + "\t" + chrom_pos + "\t" + chrom_pos + "\t" + s.SNP_ID + "\n"
+				phenotype = str(s.associated_phenotype).replace(" ", "_")
+				BED_line = chrom_num + "\t" + chrom_pos + "\t" + chrom_pos + "\t" + phenotype + "\n"
 				handle.write(BED_line)

@@ -2,18 +2,15 @@
 {% load staticfiles %}
 {% block title %}SNP See Not Enough Data{% endblock title %}
 {% block content %}
-<body>
-<body>
 
   {% block Feature_View_Nav %}
 
-
-    <div class="bs-example">
-      <div class="btn-group btn-group-justified">
-        <a class="btn btn-default" role="button" href="{% url 'feature_view_sample_data_selector' %}">Switch Data File</a>
-        <a class="btn btn-default" role="button" href="{% url 'feature_view_select_phenotypes' %}">View a Different Phenotype</a>
-      </div>
-
+<div class="bs-example">
+  <div class="btn-group btn-group-justified">
+    <a class="btn btn-default" role="button" href="{% url 'feature_view_sample_data_selector' %}">Switch Data File</a>
+    <a class="btn btn-default" role="button" href="{% url 'visual_browser' None None %}">Visual Browser </a>
+    <a class="btn btn-default" role="button" href="{% url 'feature_view_select_phenotypes' %}">Browse as List</a>
+  </div>
 
 {% endblock Feature_View_Nav %}
       <div class="page-header">

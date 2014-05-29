@@ -2,28 +2,30 @@
 {% load staticfiles %}
 {% block title %}SNP See About Page{% endblock title %}
 {% block content %}
-<body>
-<body>
-      <div class="jumbotron">
-        <h1>About</h1>
-        <p class="lead">Welcome to the about page.  Are you curious about SNP See itself?  Or bioinformatics generally?</p>
-        <a class="btn btn-lg btn-info" href="#">SNP See itself</a>
-        <a class="btn btn-lg btn-info" href="#">More about Bioinformatics</a>
-      </div>
 
-      <div class="page-header">
-        <h1>About SNP See</h1>
-      </div>
-      <div class="well">
-          <p>A detailed about page is under construction.</p>
-      </div>
 
-      <div class="page-header">
-        <h1>Some Bioinformatics Pointers</h1>
-      </div>
-      <div class="well">
-          <p>A detailed about page is under construction.</p>
-      </div>
-</body>
-</html>
+
+<div class="page-header">
+  <h1>About SNP See</h1>
+</div>
+<div class="well">
+  <p>SNP See was developed by David Muller as a project for BIMM 185 (Bioinformatics Lab) at UC San Diego.  SNP See's major aim is to provide an entryway for anyone--scientist or not--to learn more about the human genome.  To do this, we've chosen to highlight human traits that are determined by SNPs ("Single-Nucleotide Polymorphisms").</p>
+
+  <p>What does that mean?  Well, at a high level, the human genom consists of 3 billion A's, T's, C's, and G's arranged in a specific order.  In a strictly genetic sense (A's, T's, C's, and G's), humans are more than 99% similar from individual to individual.  Interestingly, much of the 1% "difference" between humans is made up by SNPs--isolated, single letter differences between genomes.  To clarify: at some given position of the genome, everyone usually has the same letter (A, T, C or G).  In a SNP, some individuals might have one letter (say A), and other individuals may have another (say G). </p>  
+
+  <p> These incredibly small differences (1 in 3 billion!), can sometimes have dramatic effects at a level we can all see.  For instance, resistance to a certain type of malaria is determined by a single SNP.  SNP See aims to use phenomenon determined by SNPs as an entry point for people to learn more about what the human genome is, and what it contains.</p>
+</div>
+
+<div class="spacer30"></div>
+
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">Find SNP See on GitHub!</h3>
+  </div>
+  <div class="panel-body">
+    Project is hosted <a target="_parent" href="https://github.com/DavidMuller/SNP_See">here</a>!
+  </div>
+</div>
+
+
 {% endblock content %}
