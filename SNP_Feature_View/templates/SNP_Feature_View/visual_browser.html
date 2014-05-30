@@ -17,25 +17,42 @@
 
     {% endblock Feature_View_Nav %}
 
+    <h1> Visual Browser </h1>
 
-    <h2> Visual Browser </h2>
-    <p>Below, is a browser containing four tracks: the human genome, human genes, common human SNPs, and, finally, SNPs that determine traits taken from SNP See's Internal Data set. <p>
+    <p class="collapse" id="viewdetails">
+      The browser below contains 4 tracks: (1) the human genome, (2) human genes, (3) common human SNPs, and, finally, (4) SNPs that determine traits from SNP See's internal data store. We encourage you to zoom in on any SNP See data you find interesting (try zooming in on specific features from the "Browse as List" page). Also, click on the human genes and human SNPs and we'll take you to information pages provided by the National Center for Biotechnology Information!<img src="{% static "SNP_Feature_View/visual_browser_how_to.png" %}" alt="some_text"> 
+    </p>
+    <a class="btn showdetails" data-toggle="collapse" data-target="#viewdetails"></a>
 
-      <iframe style="border: 1px solid #505050;" src="{% static "JBrowse-1.11.4/index.html" %}?tracklist=0&overview=0&tracks=DNA,ReferenceGenes,snp138Common,SNPSee{{ JBrowse_arg_string }}" height="490" width="810"></iframe>
 
-
-      <div id="feature_view"></div>
-
-      {% block Current_File %} 
-      <div class="panel panel-info">
-        <div class="panel-heading">
-          <h3 class="panel-title">Where is this data coming from?</h3>
-        </div>
-        <div class="panel-body">
-          You're looking at information gleaned from this {{ file_size }} file: {{ file_name }}. If you'd like to see data for a different file, select one from <a target="_parent" href="{% url 'feature_view_sample_data_selector' %}">here</a>.
-        </div>
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h3 class="panel-title">Hint!</h3>
       </div>
-      {% endblock Current_File %}
+      <div class="panel-body">
 
-      {% endblock content %}
+        Click on any feature in the track "SNP See Data" to bring up details on that feature below the browser.  
+      </div>
+    </div>
+
+
+    <iframe style="border: 1px solid #505050;" src="{% static "JBrowse-1.11.4/index.html" %}?tracklist=0&overview=0&tracks=DNA,ReferenceGenes,snp138Common,SNPSee{{ JBrowse_arg_string }}" height="490" width="810"></iframe>
+
+
+    <div id="feature_view"></div>
+
+
+    {% block Current_File %} 
+    <div class="spacer20"></div>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Where is this data coming from?</h3>
+      </div>
+      <div class="panel-body">
+        You're looking at information gleaned from this {{ file_size }} file: {{ file_name }}. If you'd like to see data for a different file, select one from <a target="_parent" href="{% url 'feature_view_sample_data_selector' %}">here</a>.
+      </div>
+    </div>
+    {% endblock Current_File %}
+    
+    {% endblock content %}
 

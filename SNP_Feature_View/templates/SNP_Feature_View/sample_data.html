@@ -14,7 +14,19 @@
 
 {% endblock Feature_View_Nav %}
       <div class="page-header">
-          <h2>Choose a file for browsing!</h2>
+          
+                    <h1>Choose a file to browse!</h1>
+
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h3 class="panel-title">What's different about the files?</h3>
+        </div>
+        <div class="panel-body">
+          Each file contains SNPs from different people; different people will have different SNPs, and therefore different traits!
+        </div>
+      </div>
+
+
           <h3>VCF Files:</h3>
           <ul class="list-group">
             {% for choice in sample_files %}
@@ -24,6 +36,9 @@
               </li>
             {% endfor %}
           </ul>
+
+                    <h3>Files from 23andMe:</h3>
+
     </div>
 
 {% endblock content %}

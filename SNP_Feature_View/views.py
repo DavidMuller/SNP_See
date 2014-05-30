@@ -39,19 +39,6 @@ def feature_view_sample_data_selector(request):
 
 
 def feature_view_load_session_data(request, file_name):
-    """CHECK THAT THE FILE IS VALID....DID YOU GET THIS FROM OUR PAGE...REPORT AN ERROR."""
-    """CHECK THAT THE FILE IS VALID....DID YOU GET THIS FROM OUR PAGE...REPORT AN ERROR."""
-    """CHECK THAT THE FILE IS VALID....DID YOU GET THIS FROM OUR PAGE...REPORT AN ERROR."""
-    """CHECK THAT THE FILE IS VALID....DID YOU GET THIS FROM OUR PAGE...REPORT AN ERROR."""
-    """CHECK THAT THE FILE IS VALID....DID YOU GET THIS FROM OUR PAGE...REPORT AN ERROR."""
-    """CHECK THAT THE FILE IS VALID....DID YOU GET THIS FROM OUR PAGE...REPORT AN ERROR."""
-    """CHECK THAT THE FILE IS VALID....DID YOU GET THIS FROM OUR PAGE...REPORT AN ERROR."""
-    """CHECK THAT THE FILE IS VALID....DID YOU GET THIS FROM OUR PAGE...REPORT AN ERROR."""
-    """CHECK THAT THE FILE IS VALID....DID YOU GET THIS FROM OUR PAGE...REPORT AN ERROR."""
-    """CHECK THAT THE FILE IS VALID....DID YOU GET THIS FROM OUR PAGE...REPORT AN ERROR."""
-    """CHECK THAT THE FILE IS VALID....DID YOU GET THIS FROM OUR PAGE...REPORT AN ERROR."""
-    """CHECK THAT THE FILE IS VALID....DID YOU GET THIS FROM OUR PAGE...REPORT AN ERROR."""
-
     # clear previous SNP data
     if 'SNPs' in request.session:
         del request.session['SNPs']
@@ -78,9 +65,14 @@ def feature_view_select_phenotypes(request):
 
 
 def visual_browser(request, chromosome_num, highlight):
+    # make sure the user has selected a file
+    if 'SNPs' not in request.session:
+        return render(request, 'SNP_Feature_View/woops_select_a_file.html')
+
+
     JBrowse_arg_string = ""
     if highlight != "None" and chromosome_num != "None":
-        region = chromosome_num + ":" + highlight
+        region = "chr" + chromosome_num + ":" + highlight # eg chr1:1200
         JBrowse_arg_string = "&highlight=" + region + "&loc=" + region
 
     file_name = request.session['SNPs']['file_name']
@@ -90,6 +82,10 @@ def visual_browser(request, chromosome_num, highlight):
 
 
 def feature_view(request, phenotype):
+    # make sure the user has selected a file
+    if 'SNPs' not in request.session:
+        return render(request, 'SNP_Feature_View/woops_select_a_file.html')
+
     phenotype = phenotype.replace("_", " ")
     phenotype = Phenotype.objects.get(phenotype=phenotype)
     pheno_geno_morphology = Pheno_Geno_Morphology.objects.all().filter(phenotype__exact=phenotype)
