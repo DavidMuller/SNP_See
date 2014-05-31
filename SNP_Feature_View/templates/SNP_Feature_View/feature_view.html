@@ -78,18 +78,18 @@
 {% block SNP_Tabs %}
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" id="myTab">
-  <li class="active"><a href="#morphology" data-toggle="tab">About {{ file_name }}'s Data</a></li>
-  <li><a href="#phenotype" data-toggle="tab">About {{ phenotype.phenotype }} SNP</a></li>
+  <li><a href="#morphology" data-toggle="tab">About {{ file_name }}'s Data</a></li>
+  <li class="active"><a href="#phenotype" data-toggle="tab">About {{ phenotype.phenotype }} SNP</a></li>
   <li><a href="#externalResources" data-toggle="tab">How it Works</a></li>
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
-    <div class="tab-pane active" id="morphology">
+    <div class="tab-pane" id="morphology">
         <p></p>
         <p>{{ pheno_geno_morphology.morphology | safe }}<p> 
     </div>
-    <div class="tab-pane" id="phenotype">
+    <div class="tab-pane active" id="phenotype">
             <p></p>
             <p>{{ phenotype.about_phenotype_text | safe}}<p> 
         </div>
@@ -107,7 +107,7 @@
 
 {% endblock SNP_Tabs %}
         <div class="page-header">
-          <div class="panel panel-warning">
+          <div class="panel panel-success">
             <div class="panel-heading">
               <h3 class="panel-title">Zoom in!</h3>
             </div>

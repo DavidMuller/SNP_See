@@ -11,8 +11,8 @@ import pickle
 import vcf
 import copy
 
+
 def index(request):
-    print settings.BASE_DIR
     return render(request, 'SNP_Feature_View/index.html')
 
 
@@ -33,12 +33,18 @@ def feature_view_home(request):
 
 
 def feature_view_sample_data_selector(request):
+    """Choose a file for viewing."""
+    file_name = "None"
+    if 'SNPs' in request.session:
+        file_name = request.session['SNPs']['file_name']
+
     sample_files = SampleFile.objects.all()
-    context = {'sample_files':sample_files}
+    context = {'sample_files':sample_files, 'file_name':file_name}
     return render(request, 'SNP_Feature_View/sample_data.html', context)
 
 
 def feature_view_load_session_data(request, file_name):
+    """Load a chosen file's SNP calls into session data store."""
     # clear previous SNP data
     if 'SNPs' in request.session:
         del request.session['SNPs']
@@ -58,17 +64,19 @@ def feature_view_load_session_data(request, file_name):
 
     return feature_view_select_phenotypes(request)
 
+
 def feature_view_select_phenotypes(request):
+    """Display all phenotypes available for viewing."""
     phenotypes = Phenotype.objects.all()
     context = {'phenotypes':phenotypes}
     return render(request, 'SNP_Feature_View/select_phenotypes.html', context)
 
 
 def visual_browser(request, chromosome_num, highlight):
+    """JBrowse viewer.  chromosome_num and highlight specify where to zoom/highlight."""
     # make sure the user has selected a file
     if 'SNPs' not in request.session:
         return render(request, 'SNP_Feature_View/woops_select_a_file.html')
-
 
     JBrowse_arg_string = ""
     if highlight != "None" and chromosome_num != "None":
@@ -82,11 +90,13 @@ def visual_browser(request, chromosome_num, highlight):
 
 
 def feature_view(request, phenotype):
+    """Standard phenotype page."""
+
     # make sure the user has selected a file
     if 'SNPs' not in request.session:
         return render(request, 'SNP_Feature_View/woops_select_a_file.html')
 
-    phenotype = phenotype.replace("_", " ")
+    phenotype = phenotype.replace("_", " ") #JBrowse passes phenotypes with underscores
     phenotype = Phenotype.objects.get(phenotype=phenotype)
     pheno_geno_morphology = Pheno_Geno_Morphology.objects.all().filter(phenotype__exact=phenotype)
     sf = SNP_Fetcher()
@@ -101,18 +111,14 @@ def feature_view(request, phenotype):
                 
                 sf.set_SNP_fields(snp.fasta_sequence)
 
-                # IF WE'RE ON THE MINUS STRAND
-                """
-                temp_left = copy.deepcopy(sf.left_flank_25_chars)
-                sf.left_flank_25_chars = sf.right_flank_25_chars
-                sf.right_flank_25_chars = temp_left
-
-                sf.left_flank_25_chars = sf.left_flank_25_chars[::-1]
-                sf.right_flank_25_chars = sf.right_flank_25_chars[::-1]
-                """
-
-
-
+                # if the snp fasta sequence is on the '-' strand, adjust appropriately
+                if snp.strand == "-":
+                    temp_left = copy.deepcopy(sf.left_flank_25_chars)
+                    sf.left_flank_25_chars = sf.right_flank_25_chars
+                    sf.right_flank_25_chars = temp_left
+                    sf.left_flank_25_chars = sf.left_flank_25_chars[::-1]
+                    sf.right_flank_25_chars = sf.right_flank_25_chars[::-1]
+                
                 file_name = request.session['SNPs']['file_name']
                 file_size = request.session['SNPs']['file_size']
 
@@ -123,6 +129,7 @@ def feature_view(request, phenotype):
 
 
 def feature_view_within_visual_browser(request, phenotype):
+    """Phenotype page rendered below JBrowse."""
     phenotype = phenotype.replace("_", " ")
     phenotype = Phenotype.objects.get(phenotype=phenotype)
     pheno_geno_morphology = Pheno_Geno_Morphology.objects.all().filter(phenotype__exact=phenotype)
@@ -138,17 +145,13 @@ def feature_view_within_visual_browser(request, phenotype):
                 
                 sf.set_SNP_fields(snp.fasta_sequence)
 
-                # IF WE'RE ON THE MINUS STRAND
-                """
-                temp_left = copy.deepcopy(sf.left_flank_25_chars)
-                sf.left_flank_25_chars = sf.right_flank_25_chars
-                sf.right_flank_25_chars = temp_left
-
-                sf.left_flank_25_chars = sf.left_flank_25_chars[::-1]
-                sf.right_flank_25_chars = sf.right_flank_25_chars[::-1]
-                """
-
-
+                # if the snp fasta sequence is on the '-' strand, adjust appropriately
+                if snp.strand == "-":
+                    temp_left = copy.deepcopy(sf.left_flank_25_chars)
+                    sf.left_flank_25_chars = sf.right_flank_25_chars
+                    sf.right_flank_25_chars = temp_left
+                    sf.left_flank_25_chars = sf.left_flank_25_chars[::-1]
+                    sf.right_flank_25_chars = sf.right_flank_25_chars[::-1]
 
                 file_name = request.session['SNPs']['file_name']
                 file_size = request.session['SNPs']['file_size']
@@ -161,22 +164,21 @@ def feature_view_within_visual_browser(request, phenotype):
 
 
 def feature_view_not_enough_data(request, phenotype):
-    #phenotype = phenotype.replace("_", " ")
-    #phenotype = Phenotype.objects.get(phenotype=phenotype)
+    """Display if the necessary SNP calls are not present."""
     file_name = request.session['SNPs']['file_name']
     context = {'file_name':file_name, 'phenotype': phenotype}
     return render(request, 'SNP_Feature_View/not_enough_data.html', context)
 
 
 def feature_view_within_visual_browser_not_enough_data(request, phenotype):
-    #phenotype = phenotype.replace("_", " ")
-    #phenotype = Phenotype.objects.get(phenotype=phenotype)
+    """Display below JBrowse if the necessary SNP calls are not present."""
     file_name = request.session['SNPs']['file_name']
     context = {'file_name':file_name, 'phenotype': phenotype}
     return render(request, 'SNP_Feature_View/not_enough_data_visual_browser.html', context)
 
 
 def sizeof_fmt(num):
+    """Return a human readable file size."""
     for x in ['bytes','KB','MB','GB']:
         if num < 1024.0:
             return "%3.1f%s" % (num, x)

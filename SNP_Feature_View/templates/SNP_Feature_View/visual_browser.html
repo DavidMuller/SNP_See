@@ -10,7 +10,7 @@
   <div class="bs-example">
     <div class="btn-group btn-group-justified">
       <a class="btn btn-default" role="button" href="{% url 'feature_view_sample_data_selector' %}">Switch Data File</a>
-      <a class="btn btn-default" role="button" href="{% url 'visual_browser' None None %}">Visual Browser </a>
+      <a class="btn btn-default active" role="button" href="{% url 'visual_browser' None None %}">Visual Browser </a>
       <a class="btn btn-default" role="button" href="{% url 'feature_view_select_phenotypes' %}">Browse as List</a>
     </div>
 
@@ -22,7 +22,7 @@
     <p class="collapse" id="viewdetails">
       The browser below contains 4 tracks: (1) the human genome, (2) human genes, (3) common human SNPs, and, finally, (4) SNPs that determine traits from SNP See's internal data store. We encourage you to zoom in on any SNP See data you find interesting (try zooming in on specific features from the "Browse as List" page). Also, click on the human genes and human SNPs and we'll take you to information pages provided by the National Center for Biotechnology Information!<img src="{% static "SNP_Feature_View/visual_browser_how_to.png" %}" alt="some_text"> 
     </p>
-    <a class="btn showdetails" data-toggle="collapse" data-target="#viewdetails"></a>
+    <a class="btn show_browser_details" data-toggle="collapse" data-target="#viewdetails"></a>
 
 
     <div class="panel panel-success">

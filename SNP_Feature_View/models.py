@@ -24,8 +24,19 @@ class Pheno_Geno_Morphology(models.Model):
 
 
 class SNP(models.Model):
+    # to be stored in database
+    FORWARD = '+'
+    REVERSE = '-'
+
+    # human readable
+    STRAND_CHOICES = (
+        (FORWARD, 'Forward'),
+        (REVERSE, 'Reverse'),
+    )
+    
     SNP_ID = models.CharField(max_length=70, unique=True, db_index=True)
     fasta_sequence = models.TextField()
+    strand = models.CharField(max_length=1, choices=STRAND_CHOICES, default=FORWARD)
     chromosome_num = models.IntegerField()
     chromosome_pos_GRCh37 = models.IntegerField()
     associated_phenotype = models.ForeignKey(Phenotype, blank=True, null=True)
@@ -52,6 +63,7 @@ class SampleFile(models.Model):
     sample_file = models.FilePathField(path=SAMPLE_FILES_DIR, unique=True, db_index=True)
     file_type = models.CharField(max_length=5, choices=FILE_TYPE_CHOICES, default=VCF)
     source = models.TextField()
+    fun_fact = models.TextField()
 
     def url(self):
         """Return file name."""

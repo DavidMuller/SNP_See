@@ -7,7 +7,7 @@
 
   <div class="bs-example">
     <div class="btn-group btn-group-justified">
-      <a class="btn btn-default" role="button" href="{% url 'feature_view_sample_data_selector' %}">Switch Data File</a>
+      <a class="btn btn-default active" role="button" href="{% url 'feature_view_sample_data_selector' %}">Switch Data File</a>
       <a class="btn btn-default" role="button" href="{% url 'visual_browser' None None %}">Visual Browser </a>
       <a class="btn btn-default" role="button" href="{% url 'feature_view_select_phenotypes' %}">Browse as List</a>
     </div>
@@ -16,29 +16,30 @@
       <div class="page-header">
           
                     <h1>Choose a file to browse!</h1>
+                    <p> Currently selected file: {{ file_name }}
 
-      <div class="panel panel-success">
-        <div class="panel-heading">
-          <h3 class="panel-title">What's different about the files?</h3>
-        </div>
-        <div class="panel-body">
-          Each file contains SNPs from different people; different people will have different SNPs, and therefore different traits!
-        </div>
-      </div>
-
-
-          <h3>VCF Files:</h3>
           <ul class="list-group">
             {% for choice in sample_files %}
               <li class="list-group-item"> 
-                <h4 class="list-group-item-heading"><a href="{% url 'feature_view_load_session_data' choice.url %}"> {{ choice.url }} </a> ---{{ choice.readable_size }} </h4>
+                <h4 class="list-group-item-heading"><a href="{% url 'feature_view_load_session_data' choice.url %}"> {{ choice.url }} </a> ({{ choice.readable_size }}) <span class="label label-success">{{ choice.fun_fact }}</span> </h4>
+                                
+
                 <p class="list-group-item-text"> {{ choice.source | safe }} </p>
               </li>
             {% endfor %}
           </ul>
 
-                    <h3>Files from 23andMe:</h3>
 
     </div>
 
+
+
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">What's different about the files?</h3>
+        </div>
+        <div class="panel-body">
+          Each file contains SNPs from different people.  Different people will have different SNPs, and therefore different traits!
+        </div>
+      </div>
 {% endblock content %}

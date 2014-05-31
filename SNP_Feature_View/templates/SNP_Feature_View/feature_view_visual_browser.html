@@ -7,7 +7,7 @@
 
 
 <h2> {{ phenotype }} </h2>
-<p>Here, we diagram the SNP that determines the following phenotype: {{ phenotype.phenotype}}<p>
+<p>Try lining up the sequence given below with the reference DNA sequence in the visual browser--it will line up with the top or bottom line of letters in the visual browser.  You can use either Parent 1 or Parent 2!<p>
 
   <div id="myCarousel" class="carousel" data-ride="carousel" style="width: 700px; 400px; margin: 0 auto" >
     <!-- Indicators -->
@@ -62,23 +62,25 @@
   });
   </script>
 
-  <div class="spacer30"></div>
+
+
+  <div class="spacer20"></div>
 
   {% block SNP_Tabs %}
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" id="myTab">
-    <li class="active"><a href="#morphology" data-toggle="tab">About {{ file_name }}'s Data</a></li>
-    <li><a href="#phenotype" data-toggle="tab">About {{ phenotype.phenotype }} SNP</a></li>
+    <li><a href="#morphology" data-toggle="tab">About {{ file_name }}'s Data</a></li>
+    <li class="active"><a href="#phenotype" data-toggle="tab">About {{ phenotype.phenotype }} SNP</a></li>
     <li><a href="#externalResources" data-toggle="tab">How it Works</a></li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <div class="tab-pane active" id="morphology">
+    <div class="tab-pane" id="morphology">
       <p></p>
       <p>{{ pheno_geno_morphology.morphology | safe }}<p> 
       </div>
-      <div class="tab-pane" id="phenotype">
+      <div class="tab-pane active" id="phenotype">
         <p></p>
         <p>{{ phenotype.about_phenotype_text | safe}}<p> 
         </div>
@@ -97,7 +99,7 @@
         {% endblock SNP_Tabs %}
 
         <div class="page-header">
-          <div class="panel panel-warning">
+          <div class="panel panel-success">
             <div class="panel-heading">
               <h3 class="panel-title">Zoom in!</h3>
             </div>
