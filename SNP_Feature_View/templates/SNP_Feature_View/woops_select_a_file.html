@@ -3,16 +3,14 @@
 {% block title %}SNP See Under Construction{% endblock title %}
 {% block content %}
 
-  <div class="page-header">
-    <div class="panel panel-warning">
-      <div class="panel-heading">
-        <h3 class="panel-title">Heads up!</h3>
-      </div>
-      <div class="panel-body">
-        Looks like you haven't selected a file for browsing yet.  In order to show you the ways someone's SNPs might affect them, we'll need a file containing SNPs in someone's actual genome.  Pick one <a href="{% url 'feature_view_sample_data_selector' %}">here</a>!  
-      </div>
-    </div>
+<div class="page-header">
+	<div class="panel panel-warning">
+		<div class="panel-heading">
+			<h3 class="panel-title">Heads up!</h3>
+		</div>
+		<div class="panel-body">
+			Looks like you haven't selected a file for browsing yet.  In order to show you the ways someone's SNPs might affect them, we'll need a file containing SNPs in someone's actual genome.  Pick one <a href="{% url 'feature_view_sample_data_selector' %}">here</a>!  
+		</div>
+	</div>
 
-
-
-{% endblock content %}
+	{% endblock content %}

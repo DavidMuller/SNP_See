@@ -3,43 +3,37 @@
 {% block title %}SNP See Sample Data {% endblock title %}
 {% block content %}
 
-  {% block Feature_View_Nav %}
+{% block Feature_View_Nav %}
 
-  <div class="bs-example">
-    <div class="btn-group btn-group-justified">
-      <a class="btn btn-default active" role="button" href="{% url 'feature_view_sample_data_selector' %}">Switch Data File</a>
-      <a class="btn btn-default" role="button" href="{% url 'visual_browser' None None %}">Visual Browser </a>
-      <a class="btn btn-default" role="button" href="{% url 'feature_view_select_phenotypes' %}">Browse as List</a>
-    </div>
+<div class="bs-example">
+  <div class="btn-group btn-group-justified">
+    <a class="btn btn-default active" role="button" href="{% url 'feature_view_sample_data_selector' %}">Switch Data File</a>
+    <a class="btn btn-default" role="button" href="{% url 'visual_browser' None None %}">Visual Browser </a>
+    <a class="btn btn-default" role="button" href="{% url 'feature_view_select_phenotypes' %}">Browse as List</a>
+  </div>
 
-{% endblock Feature_View_Nav %}
-      <div class="page-header">
-          
-                    <h1>Choose a file to browse!</h1>
-                    <p> Currently selected file: {{ file_name }}
+  {% endblock Feature_View_Nav %}
+  <div class="page-header">
 
-          <ul class="list-group">
-            {% for choice in sample_files %}
-              <li class="list-group-item"> 
-                <h4 class="list-group-item-heading"><a href="{% url 'feature_view_load_session_data' choice.url %}"> {{ choice.url }} </a> ({{ choice.readable_size }}) <span class="label label-success">{{ choice.fun_fact }}</span> </h4>
-                                
+    <h1>Choose a file to browse!</h1>
+    <p> Currently selected file: <span class="badge">{{ file_name }}</span> </p>
 
-                <p class="list-group-item-text"> {{ choice.source | safe }} </p>
-              </li>
-            {% endfor %}
-          </ul>
+  <ul class="list-group">
+    {% for choice in sample_files %}
+    <li class="list-group-item"> 
+      <h4 class="list-group-item-heading"><a href="{% url 'feature_view_load_session_data' choice.url %}"> {{ choice.url }} </a> ({{ choice.readable_size }}) <span class="label label-success">{{ choice.fun_fact }}</span> </h4>
+      <p class="list-group-item-text"> {{ choice.source | safe }} </p>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
 
-
-    </div>
-
-
-
-      <div class="panel panel-info">
-        <div class="panel-heading">
-          <h3 class="panel-title">What's different about the files?</h3>
-        </div>
-        <div class="panel-body">
-          Each file contains SNPs from different people.  Different people will have different SNPs, and therefore different traits!
-        </div>
-      </div>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">What's different about the files?</h3>
+  </div>
+  <div class="panel-body">
+    Each file contains SNPs from different people.  Different people will have different SNPs, and therefore different traits!
+  </div>
+</div>
 {% endblock content %}

@@ -5,6 +5,7 @@ import os
 
 
 class Phenotype(models.Model):
+    """Hold the high level trait, its associated SNPs, and text about it."""
     phenotype = models.CharField(max_length=70, unique=True)
     about_phenotype_text = models.TextField()
     external_resources = models.TextField()
@@ -15,6 +16,7 @@ class Phenotype(models.Model):
 
 
 class Pheno_Geno_Morphology(models.Model):
+    """For a given phenotype (high level trait), save possible genotypes, and their morphologies."""
     phenotype = models.ForeignKey(Phenotype)
     genotype = models.TextField()
     morphology = models.TextField()
@@ -24,6 +26,7 @@ class Pheno_Geno_Morphology(models.Model):
 
 
 class SNP(models.Model):
+    """Store SNPs by rsID.  Keep associated sequence, and position + flanking sequence for GRCh37."""
     # to be stored in database
     FORWARD = '+'
     REVERSE = '-'
@@ -48,6 +51,7 @@ class SNP(models.Model):
 SAMPLE_FILES_DIR = settings.MEDIA_ROOT + "SNP_Feature_View/sample_files/"
 
 class SampleFile(models.Model):
+    """Our sample browsing files.  Store their path, file type, and some associated text."""
     # to be stored in database
     VCF = 'VCF'
     TWENTYTHREEANDME = '23+Me'
@@ -90,4 +94,4 @@ def sizeof_fmt(num):
         if num < 1024.0:
             return "%3.1f%s" % (num, x)
         num /= 1024.0
-    return "%3.1f%s" % (num, 'TB')        
+    return "%3.1f%s" % (num, 'TB')

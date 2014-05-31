@@ -14,7 +14,10 @@ class Command(BaseCommand):
 
 
 class BEDFileGenerator():
+	"""Write a BED line for every snp in 'SNP' database. Save in media folder."""
+	
 	def __init__(self):
+		"""Define the path to our SNP BED file."""
 		self.file_dir = 'media/SNP_Feature_View/JBrowse/BED_files/'
 		self.file_name = 'SNP_BED_file.bed'
 		self.file_path = self.file_dir + self.file_name

@@ -13,23 +13,33 @@ import copy
 
 
 def index(request):
+    """Home page."""
     return render(request, 'SNP_Feature_View/index.html')
 
 
 def about(request):
+    """About page."""
     return render(request, 'SNP_Feature_View/about.html')
 
 
 def contact(request):
+    """Contact page."""
     return render(request, 'SNP_Feature_View/contact.html')
 
 
 def under_construction(request):
+    """Under construction page."""
     return render(request, 'SNP_Feature_View/under_construction.html')
 
 
 def feature_view_home(request):
+    """Feature view home page."""
     return render(request, 'SNP_Feature_View/feature_view_home.html')
+
+
+def data_set_characterization(request):
+    """Data set characterization page."""
+    return render(request, 'SNP_Feature_View/data_set_characterization.html')
 
 
 def feature_view_sample_data_selector(request):
@@ -160,7 +170,6 @@ def feature_view_within_visual_browser(request, phenotype):
                 return render(request, 'SNP_Feature_View/feature_view_visual_browser.html', context)
 
     return feature_view_within_visual_browser_not_enough_data(request, phenotype)
-
 
 
 def feature_view_not_enough_data(request, phenotype):

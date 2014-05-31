@@ -3,26 +3,24 @@
 {% block title %}SNP See Feature View {% endblock title %}
 {% block content %}
 
-		<h1>Trying out SNP See</h1>
+<h1>Trying out SNP See</h1>
 
-		<div class="jumbotron">
-			<h1>Sample Data</h1>
+<div class="jumbotron">
+	<h1>Sample Data</h1>
+	<p class="lead">Want to browse some sample data?</p>
+	<a class="btn btn-lg btn-success" href="{% url 'feature_view_sample_data_selector' %}">Sample Data!</a>
+</div>
 
-			<p class="lead">Want to browse some sample data?</p>
-			<a class="btn btn-lg btn-success" href="{% url 'feature_view_sample_data_selector' %}">Sample Data!</a>
-		</div>
+<div class="jumbotron">
+	<h1>Data Set</h1>
+	<p class="lead">Interested in the data set we've curated for browsing?</p>
+	<a class="btn btn-lg btn-primary" href="{% url 'data_set_characterization' %}">Preliminary Data Set Characterization</a>
+</div>
 
+<div class="jumbotron">
+	<h1>Under Construction...</h1>
+	<p class="lead">Want to view your own data file?</p>
+	<a class="btn btn-lg btn-warning" href="{% url 'under_construction' %}">My Own Data</a>
+</div>
 
-		<div class="jumbotron">
-			<h1>Data Set</h1>
-			<p class="lead">Interested in the data set we've curated for browsing?</p>
-			<a class="btn btn-lg btn-primary" href="{% url 'feature_view_sample_data_selector' %}">Preliminary Data Set Characterization</a>
-		</div>
-
-		<div class="jumbotron">
-			<h1>Under Construction...</h1>
-			<p class="lead">Want to view your own data file?</p>
-			<a class="btn btn-lg btn-warning" href="{% url 'under_construction' %}">My Own Data</a>
-		</div>
-
-		{% endblock content %}
+{% endblock content %}

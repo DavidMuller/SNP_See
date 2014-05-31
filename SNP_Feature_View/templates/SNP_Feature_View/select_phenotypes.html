@@ -3,7 +3,7 @@
 {% block title %}SNP See Select Phenotypes{% endblock title %}
 {% block content %}
 
-  {% block Feature_View_Nav %}
+{% block Feature_View_Nav %}
 
 
 <div class="bs-example">
@@ -13,36 +13,35 @@
     <a class="btn btn-default active" role="button" href="{% url 'feature_view_select_phenotypes' %}">Browse as List</a>
   </div>
 
-    {% endblock Feature_View_Nav %}
-    <div class="page-header">
-      
-      <div class="panel panel-success">
-        <div class="panel-heading">
-          <h3 class="panel-title">Zoom in!</h3>
-        </div>
-        <div class="panel-body">
-          If you'd like, use the links at the end of each feature's description to zoom to the feature in the visual browser.  Some features have more than one associated SNP, choose any of them!
-        </div>
+  {% endblock Feature_View_Nav %}
+  <div class="page-header">
+
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h3 class="panel-title">Zoom in!</h3>
       </div>
-
-      
-      <h2>Here are some of the viewable traits:</h2>
-
-      <ul class="list-group">
-        {% for choice in phenotypes %}
-        <li class="list-group-item"> 
-          <h4 class="list-group-item-heading">
-            <a href="{% url 'feature_view' choice.phenotype %}"> {{ choice.phenotype }} </a> 
-          </h4>
-          
-          <p class="list-group-item-text"> {{ choice.about_phenotype_text | safe }} </p>
-          {% for snp in choice.associated_snps.all %}
-          <p class="list-group-item-text"> <a href="{% url 'visual_browser' snp.chromosome_num snp.chromosome_pos_GRCh37%}"> Zoom to this feature ({{ snp.SNP_ID }}) </a>  </p>
-          {% endfor %}
-        </li>
-        {% endfor %}
-      </ul>
+      <div class="panel-body">
+        If you'd like, use the links at the end of each feature's description to zoom to the feature in the visual browser.  Some features have more than one associated SNP, choose any of them!
+      </div>
     </div>
 
 
-    {% endblock content %}
+    <h2>Here are some of the viewable traits:</h2>
+
+    <ul class="list-group">
+      {% for choice in phenotypes %}
+      <li class="list-group-item"> 
+        <h4 class="list-group-item-heading">
+          <a href="{% url 'feature_view' choice.phenotype %}"> {{ choice.phenotype }} </a> 
+        </h4>
+
+        <p class="list-group-item-text"> {{ choice.about_phenotype_text | safe }} </p>
+        {% for snp in choice.associated_snps.all %}
+        <p class="list-group-item-text"> <a href="{% url 'visual_browser' snp.chromosome_num snp.chromosome_pos_GRCh37%}"> Zoom to this feature ({{ snp.SNP_ID }}) </a>  </p>
+        {% endfor %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  {% endblock content %}
