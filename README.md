@@ -39,9 +39,11 @@ Django management Scripts
 We've written 2 management scripts: generate_session_data, and create_SNP_BED_file
 
 generate_session_data is invoked with Django as follows: python manage.py generate_session_data
+
 It takes all sample files contained in the Django backing database and searches them for SNP calls that SNP See uses to determine traits.  SNP calls contained in the sample file, and used by SNP See, are added to a dictionary and pickled out to a file in media/SNP_Feature_View/sample_files_as_session_data
 
 create_SNP_BED_file is invoked with Django as follows: python create_SNP_BED_file
+
 It takes the SNP relation maintained by Django, and writes it to a BED file--specifically it writes the file media/SNP_Feature_View/JBrowse/BED_files/SNP_BED_file.bed.  (That BED file can be incorporated into JBrowse for viewing using JBrowse's bin/flatfile-to-json.pl script.)  
 
 
