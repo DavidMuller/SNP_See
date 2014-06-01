@@ -1,0 +1,49 @@
+/* Customize container */
+@media (min-width: 848px) {
+  .container {
+    max-width: 810px;
+  }
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+.carousel-control.left, .carousel-control.right {
+	background-image: none
+}
+
+.carousel-caption {
+	top: 0;
+	bottom: auto;
+}
+
+.carousel-caption h2,
+.carousel-caption p,
+.carousel-caption .lead {
+	margin: 0;
+	line-height: 1.25;
+	color: #333;
+	text-shadow: 0 1px 1px rgba(0,0,0,.4);
+}
+
+
+
+.in.collapse+a.btn.show_browser_details:before { 
+    content:'Hide details photo «';
+}
+.collapse+a.btn.show_browser_details:before { 
+    content:'What is on this browser? »'; 
+}
+
+.spacer5 { height: 5px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer10 { height: 10px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer15 { height: 15px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer20 { height: 20px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer25 { height: 25px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer30 { height: 30px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer35 { height: 35px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer40 { height: 40px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer45 { height: 45px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer50 { height: 50px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer100 { height: 100px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer200 { height: 200px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
