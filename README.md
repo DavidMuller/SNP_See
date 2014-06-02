@@ -11,7 +11,7 @@ Dependencies:
 
 <a href="http://pyvcf.readthedocs.org/en/latest/">PyVCF</a> for parsing VCF files.  PyVCF can be installed with: `pip install pyvcf`
 
-Biopython: `sudo apt-get install python-biopython`
+<a href="http://biopython.org/wiki/Main_Page">Biopython</a>: `sudo apt-get install python-biopython`
 
 
 JBrowse
@@ -40,7 +40,7 @@ The sample genetic files are in `media/SNP_Feature_View/sample_files`
 
 Django management Scripts
 =======
-We've written 2 management scripts: generate_session_data, and create_SNP_BED_file
+We've written 2 management scripts: `generate_session_data`, and `create_SNP_BED_file`
 
 generate_session_data is invoked with Django as follows: `python manage.py generate_session_data`
 
