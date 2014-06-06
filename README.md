@@ -8,8 +8,6 @@ Project Dependencies
 
 Built with <a href="https://www.djangoproject.com/">Django</a> 1.6.5
 
-Dependencies:
-
 <a href="http://pyvcf.readthedocs.org/en/latest/">PyVCF</a> for parsing VCF files.  PyVCF can be installed with: `pip install pyvcf`
 
 <a href="http://biopython.org/wiki/Main_Page">Biopython</a>: `sudo apt-get install python-biopython`
