@@ -1,0 +1,16 @@
+{% extends "SNP_Feature_View/base.html" %}
+{% load staticfiles %}
+{% block title %}Heads up!{% endblock title %}
+{% block content %}
+
+<div class="page-header">
+	<div class="panel panel-warning">
+		<div class="panel-heading">
+			<h3 class="panel-title">Heads up!</h3>
+		</div>
+		<div class="panel-body">
+			We've received some input from you that we couldn't handle.  If you're getting this page after clicking on a link provided by SNP See, please <a href="{% url 'contact' %}"> contact us</a>.   
+		</div>
+	</div>
+
+{% endblock content %}

@@ -1,0 +1,62 @@
+{% extends "SNP_Feature_View/base.html" %}
+{% load staticfiles %}
+{% block title %}SNP See About Page{% endblock title %}
+{% block content %}
+
+
+  {% if traits_admin %}
+    <div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Admin-Approved Traits on chr{{ chromosome_num }} (Click to View in Visual Genome Browser)</div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Trait </th>
+        <th>Chromsome Number</th>
+        <th>Chromosome Position (GRCh37) </th>
+        <th>SNP ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for t in traits_admin %}
+      <tr>
+        <td><a href="{% url 'visual_browser' t.chromosome_num t.chromosome_pos_GRCh37 %}">{{ t.associated_phenotype }} </a> </td>
+        <td>{{ t.chromosome_num }} </td>
+        <td>{{ t.chromosome_pos_GRCh37 }} </td>
+        <td>{{ t.SNP_ID }} </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+  {% endif %}
+
+  {% if traits_user %}
+      <div class="spacer20"></div>
+      <div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">User-Submitted Traits on chr{{ chromosome_num }} (Click to view Trait)</div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Trait </th>
+        <th>Chromsome Number</th>
+        <th>Chromosome Position (GRCh37) </th>
+        <th>SNP ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for t in traits_user %}
+      <tr>
+        <td><a href="{% url 'feature_view' t.associated_phenotype %}"> {{ t.associated_phenotype }}</a> </td>
+        <td>{{ t.chromosome_num }} </td>
+        <td>{{ t.chromosome_pos_GRCh37 }} </td>
+        <td>{{ t.SNP_ID }} </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+  </div>
+
+{% endblock content %}

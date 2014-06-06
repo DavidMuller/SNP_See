@@ -8,15 +8,15 @@
   margin: 30px 0;
 }
 
+
+/* Adjust Boostrap Carousel */
 .carousel-control.left, .carousel-control.right {
 	background-image: none
 }
-
 .carousel-caption {
 	top: 0;
 	bottom: auto;
 }
-
 .carousel-caption h2,
 .carousel-caption p,
 .carousel-caption .lead {
@@ -27,14 +27,28 @@
 }
 
 
+ /* Django forms give red errors.  */
+.errorlist{
+   color: #FF0000;
+}
 
+
+/* Collapsible html buttons */
 .in.collapse+a.btn.show_browser_details:before { 
     content:'Hide details photo «';
 }
 .collapse+a.btn.show_browser_details:before { 
-    content:'What is on this browser? »'; 
+    content:'Confused? Click for a tutorial!'; »'; 
 }
 
+.in.collapse+a.btn.show_extra_forms:before { 
+    content:'Hide Extra fields «';
+}
+.collapse+a.btn.show_extra_forms:before { 
+    content:'I want to add more »'; 
+}
+
+/* Vertical white space */
 .spacer5 { height: 5px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
 .spacer10 { height: 10px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
 .spacer15 { height: 15px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }

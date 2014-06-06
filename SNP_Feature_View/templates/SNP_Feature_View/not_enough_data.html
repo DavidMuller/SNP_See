@@ -10,7 +10,9 @@
       <h3 class="panel-title">Heads up with {{ file_name }}</h3>
     </div>
     <div class="panel-body">
-      We've looked through {{ file_name }}, but it seems {{ file_name }} actually doesn't contain the base calls necessary for us to determine {{ phenotype.phenotype }}.  If you're interested in learning about {{ phenotype.phenotype }}, you can try using a different file.  Select one <a href="{% url 'feature_view_sample_data_selector' %}">here</a>.  Otherwise, <a href="{% url 'feature_view_select_phenotypes' %}">choose another phenotype to view</a>.
+      We've looked through {{ file_name }}, but it seems {{ file_name }} actually doesn't contain the base calls necessary for us to determine {{ phenotype.phenotype }}.  If you're interested in learning about {{ phenotype.phenotype }}, you can <a href="{% url 'feature_view_sample_data_selector' %}">try using a different file</a>.  Otherwise, <a href="{% url 'feature_view_select_phenotypes' %}">choose another phenotype to view</a>.
+      <p></p>
+      <p>* If you're looking at a recently submitted user feature, allow a few hours for the server to update before viewing the feature.</p>
     </div>
   </div>
 </div>

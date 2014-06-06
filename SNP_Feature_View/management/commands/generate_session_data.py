@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
-from SNP_Feature_View.models import SNP, SampleFile
+from django.db.models import Q
+from SNP_Feature_View.models import SNP, SNPStatus, SampleFile
 
 import pickle
 import vcf
@@ -27,6 +28,7 @@ class SessionDataGenerator():
 		self.session_data_file_dir = 'media/SNP_Feature_View/sample_files_as_session_data/'
 		self.session_data_file_path = self.session_data_file_dir + file_name
 
+		# fill out a SNP calls dictionary
 		self.SNP_calls = dict()
 
 		if file_type == "VCF":
@@ -34,19 +36,21 @@ class SessionDataGenerator():
 		else: # 23+Me
 			self.fill_SNP_calls_dict_23_and_me()
 
+		# write SNP calls into session data file
 		self.write_session_data_file()
 
 	def fill_SNP_calls_dict_vcf(self):
 		"""Read the vcf file at self.raw_data_file_path, grab any SNP calls that are also in our database."""
 		
-		# dump all SNPs out of database
-		SNPs_to_look_for = SNP.objects.values_list('SNP_ID', flat=True)
+		# dump all User-Submitted and Admin-Approved SNPs 
+		SNPs_to_look_for = SNP.objects.filter(Q(snpstatus__status='A') | Q(snpstatus__status='U'))
 		
 		# put SNP ids in a dictionary for fast lookup
 		SNPs_to_look_for_dict = dict()
 		for s in SNPs_to_look_for:
-			if s not in SNPs_to_look_for_dict:
-				SNPs_to_look_for_dict[s] = True
+			snp_name = s.SNP_ID
+			if snp_name not in SNPs_to_look_for_dict:
+				SNPs_to_look_for_dict[snp_name] = True
 
 		vcf_reader = vcf.Reader(open(self.raw_data_file_path), 'r')
 		for record in vcf_reader:
@@ -58,14 +62,15 @@ class SessionDataGenerator():
 	def fill_SNP_calls_dict_23_and_me(self):
 		"""Read the 23+Me file at self.raw_data_file_path, grab any SNP calls that are also in our database."""
 		
-		# dump all SNPs out of database
-		SNPs_to_look_for = SNP.objects.values_list('SNP_ID', flat=True)
+		# dump all User-Submitted and Admin-Approved SNPs 
+		SNPs_to_look_for = SNP.objects.filter(Q(snpstatus__status='A') | Q(snpstatus__status='U'))
 		
 		# put SNP ids in a dictionary for fast lookup
 		SNPs_to_look_for_dict = dict()
 		for s in SNPs_to_look_for:
-			if s not in SNPs_to_look_for_dict:
-				SNPs_to_look_for_dict[s] = True
+			snp_name = s.SNP_ID
+			if snp_name not in SNPs_to_look_for_dict:
+				SNPs_to_look_for_dict[snp_name] = True
 		
 		with open(self.raw_data_file_path, 'r') as handle:
 			for line in handle:

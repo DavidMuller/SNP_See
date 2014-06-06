@@ -1,0 +1,91 @@
+{% extends "SNP_Feature_View/base.html" %}
+{% load staticfiles %}
+{% block title %}Edit Incomplete Feature{% endblock title %}
+{% block content %}
+
+<div class="bs-example">
+  <div class="btn-group btn-group-justified">
+    <a class="btn btn-default" role="button" href="{% url 'add_new_feature_home' %}">Add New Feature Home</a>
+    <a class="btn btn-default" role="button" href="{% url 'add_new' %}">New Feature!</a>
+    <a class="btn btn-default" role="button" href="{% url 'incomplete_user_submissions' %}">Edit Incomplete Features</a>
+  </div>
+
+<h1> You're editing the feature called: '{{ phenotype_name }}' </h1>
+
+<form action="/SNP_Feature_View/edit_incomplete/{{ phenotype_name }}/" method="post">{% csrf_token %}
+
+<div class="spacer20"></div>
+
+<div class="well well-sm">
+	<h4> If you'd like, edit previously inputted information: </h4> 
+</div>
+
+<h5> '{{ phenotype_name }}' is associated with the following SNP: <b>{{ snp_name }}</b> </h5>
+
+    {% for field in snp_fields %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+        </div>
+    {% endfor %}
+
+      <div class="spacer20"></div>
+
+<div class="well well-sm">
+	<h4> Let's finalize details of your feature: </h4> 
+</div>
+    {% for field in phenotype_fields %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+        </div>
+    {% endfor %}
+
+    {{ form.non_field_errors }}
+
+    {% for field in pgm_field %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+        </div>
+    {% endfor %}
+
+      <div class="spacer20"></div>
+
+<div class="well well-sm">
+	<h4> If there are other interesting genotypes for this SNP, add them here (a page for your feature will only display if the file being browsed contains one of the genotypes you list on this edit page): </h4> 
+</div>
+
+    <div class="collapse" id="viewdetails">
+
+    {% for field in optional_pgm_fields %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+        </div>
+    {% endfor %}
+
+    </div>
+    <a class="btn show_extra_forms" data-toggle="collapse" data-target="#viewdetails"></a>
+
+    <div class="spacer20"></div>
+
+<div class="well well-sm">
+	<h4> Submitting will finalize your feature; it will display as a user-submitted feature on SNP See.  With an administrator's approval, it will be integrated into the 'SNP See Data' track on JBrowse.  </h4> 
+</div>
+
+<p><input type="submit" value="Submit" name="submit_final" /></p>
+
+</form>
+
+<div class="page-header">
+	<div class="panel panel-warning">
+		<div class="panel-heading">
+			<h3 class="panel-title">Having Trouble Submitting?</h3>
+		</div>
+		<div class="panel-body">
+			Check for errors with the extra genotypes you added in the hidden menu (under the button "I want to add more").  
+		</div>
+	</div>
+
+{% endblock content %}

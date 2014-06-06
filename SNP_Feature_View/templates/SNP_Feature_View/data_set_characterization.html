@@ -5,6 +5,18 @@
 
 <h1>Preliminary Data Set Characterization</h1>
 
+
+<div class="panel panel-info">
+	<div class="panel-heading">
+		<h3 class="panel-title">Whoa there</h3>
+	</div>
+	<div class="panel-body">
+		Our database is in its infancy in terms of number of traits catalogued and properties maintained.  Here are some preliminary details:
+	</div>
+</div>
+
+
+
 <div class="panel panel-default">
 	<!-- Default panel contents -->
 	<div class="panel-heading">Totals</div>
@@ -17,10 +29,63 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td>Molecular Mechanism Known</td>
-				<td>2</td>
+				<td>User-Submitted</td>
+				<td>{{ user_submitted_count }}</td>
+			</tr>
+			<tr>
+				<td>Admin-Approved</td>
+				<td>{{ admin_approved_count }}</td>
 			</tr>
 		</tbody>
 	</table>
+</div>
 
+
+      <div class="spacer20"></div>
+
+	<div class="panel panel-default">
+	<!-- Default panel contents -->
+	<div class="panel-heading">Sample Files</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Sample File Name</th>
+				<th>Type</th>
+				<th>Size<th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for sf in sample_files %}
+			<tr>
+				<td>{{ sf.url }} </td>
+				<td>{{ sf.file_type }} </td>
+				<td>{{ sf.readable_size }} </td>
+
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+      <div class="spacer20"></div>
+
+		<div class="panel panel-default">
+	<!-- Default panel contents -->
+	<div class="panel-heading">Traits by Chromosome (Click on chr# for Details)</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Chromsome Number</th>
+				<th>Number Traits <th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for t in traits_by_chrom %}
+			<tr>
+				<td><a href="{% url 'data_set_detail' t.chromosome_num %}">chr{{ t.chromosome_num }}</a></td>
+				<td>{{ t.num_traits }} </td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
 	{% endblock content %}

@@ -1,0 +1,40 @@
+{% extends "SNP_Feature_View/base.html" %}
+{% load staticfiles %}
+{% block title %}Incomplete Submissions{% endblock title %}
+{% block content %}
+
+<div class="bs-example">
+  <div class="btn-group btn-group-justified">
+    <a class="btn btn-default" role="button" href="{% url 'add_new_feature_home' %}">Add New Feature Home</a>
+    <a class="btn btn-default" role="button" href="{% url 'add_new' %}">New Feature!</a>
+    <a class="btn btn-default active" role="button" href="{% url 'incomplete_user_submissions' %}">Edit Incomplete Features</a>
+  </div>
+
+<h1> Edit incomplete submissions:</h1>
+
+<h2> Click to edit! </h2>
+
+<div class="list-group">
+	{% for choice in incomplete %}
+	<a href="{% url 'edit_incomplete' choice.phenotype %}" class="list-group-item list-group-item-warning">
+		<h2 class="list-group-item-heading">{{ choice.phenotype }}</h2>
+		{% for snp in choice.associated_snps.all %}
+		<p class="list-group-item-text"> {{ choice.phenotype }}'s associated SNP has id: {{ snp.SNP_ID }}  </p>
+		{% endfor %}
+		<p class="list-group-item-text">Click to complete this trait!</p>
+		{% endfor %}
+	</a>
+</div>
+
+
+<div class="page-header">
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h3 class="panel-title">Nothing here?</h3>
+		</div>
+		<div class="panel-body">
+			Has your feature been finalized and added to <a href="{% url 'feature_view_select_phenotypes' %}"> the SNP See browser</a>?  (Appears at the bottom of the list, in yellow.) If not, try <a href="{% url 'add_new' %}">adding a new feature</a>!   
+		</div>
+	</div>
+
+{% endblock content %}

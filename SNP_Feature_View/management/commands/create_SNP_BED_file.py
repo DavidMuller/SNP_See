@@ -5,7 +5,7 @@ import os
 import sys
 
 class Command(BaseCommand):
-    help = 'Create a BED file with all the SNPs from our SNP database.'
+    help = 'Create a BED file with all the admin-approved SNPs from our SNP database.'
 
     def handle(self, *args, **options):
 		self.stdout.write('Writing SNPs into BED file...')
@@ -14,7 +14,7 @@ class Command(BaseCommand):
 
 
 class BEDFileGenerator():
-	"""Write a BED line for every snp in 'SNP' database. Save in media folder."""
+	"""Write a BED line for every snp in admin-approved 'SNP' database. Save in media folder."""
 	
 	def __init__(self):
 		"""Define the path to our SNP BED file."""
@@ -24,7 +24,10 @@ class BEDFileGenerator():
 
 	def write_BED_file(self):
 		"""Write a bed line for every SNP in database."""
-		all_SNPs = SNP.objects.all()
+
+		# only incorporate admin-approved SNPs into BED file
+		all_SNPs = SNP.objects.filter(snpstatus__status='A')
+		
 		with open(self.file_path, 'w') as handle:
 			for s in all_SNPs:
 				chrom_num = 'chr' + str(s.chromosome_num)

@@ -21,15 +21,15 @@
         <h3 class="panel-title">Zoom in!</h3>
       </div>
       <div class="panel-body">
-        If you'd like, use the links at the end of each feature's description to zoom to the feature in the visual browser.  Some features have more than one associated SNP, choose any of them!
+        If you'd like, use the links at the end of each feature's description to zoom to the feature in the visual browser.
       </div>
     </div>
 
 
-    <h2>Here are some of the viewable traits:</h2>
+    <h2>Here are the viewable traits:</h2>
 
     <ul class="list-group">
-      {% for choice in phenotypes %}
+      {% for choice in admin_approved %}
       <li class="list-group-item"> 
         <h4 class="list-group-item-heading">
           <a href="{% url 'feature_view' choice.phenotype %}"> {{ choice.phenotype }} </a> 
@@ -42,6 +42,31 @@
       </li>
       {% endfor %}
     </ul>
+
+    <h2>The following are user-submitted traits:</h2>
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">What's different about user-submitted traits?</h3>
+      </div>
+      <div class="panel-body">
+        User-submitted traits have not yet been verified for accuracy by an administrator, and will not appear in the visual browser.  When they are approved, they will be added to the visual browser.   
+      </div>
+      </div>
+
+    <ul class="list-group">
+      {% for choice in user_submitted %}
+      <li class="list-group-item list-group-item-warning"> 
+        <h4 class="list-group-item-heading">
+          <a href="{% url 'feature_view' choice.phenotype %}"> {{ choice.phenotype }} </a> 
+        </h4>
+
+        <p class="list-group-item-text"> {{ choice.about_phenotype_text }} </p>
+
+      </li>
+      {% endfor %}
+    </ul>
+
   </div>
 
   {% endblock content %}

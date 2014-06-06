@@ -25,10 +25,8 @@
     }
     </script>
 
-
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{% static "bootstrap-3.1.1-dist/js/bootstrap.min.js" %}"></script>
-
 
     <title>{% block title %}My amazing site{% endblock %}</title>
 </head>
@@ -36,19 +34,38 @@
 <body>
     <div class="container">
       <div class="header">
-        <ul class="nav nav-pills pull-right">
-            <li class="active"><a href="{% url 'index' %}">Home</a></li>
-            <li><a href="{% url 'about' %}">About</a></li>
-            <li><a href="{% url 'contact' %}">Contact</a></li>
-            <li><a  class="btn btn-md btn-success" href="{% url 'feature_view_home' %}">SNP See</a></li>
-        </ul>
-        <h3 class="text-muted">SNP See</h3>
+        <div class="pull-right">
+                    <div class="btn-group">
+
+          <a href="{% url 'index' %}" type="button" class="btn btn-primary">Home</a>
+          <a href="{% url 'about' %}" type="button" class="btn btn-default">About</a>
+          <a href="{% url 'contact' %}" type="button" class="btn btn-default">Contact</a>
+                  </div>
+
+          <div class="btn-group">
+            <a href="{% url 'feature_view_home' %}" type="button" class="btn btn-success dropdown-toggle">SNP See</a>
+            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="{% url 'feature_view_sample_data_selector' %}">Let's Browse</a></li>
+                <li><a href="{% url 'add_new_feature_home' %}">Add New Feature (Advanced Users)</a></li>
+                <li><a href="{% url 'data_set_characterization' %}">Database Overview</a></li>
+                <li class="divider"></li>
+                <li><a href="{% url 'under_construction' %}">Under Construction...View Personal File</a></li>
+            </ul>
+        </div>
     </div>
-    {% endblock header %}
-    {% block content %}
-    {% block Feature_View_Nav %} {% endblock Feature_View_Nav %}
-    {% block SNP_Tabs %} {% endblock SNP_Tabs %}
-    {% block Current_File %} {% endblock Current_File %}
-    {% endblock content %}
+
+
+    <h3 class="text-muted">SNP See</h3>
+</div>
+{% endblock header %}
+{% block content %}
+{% block Feature_View_Nav %} {% endblock Feature_View_Nav %}
+{% block SNP_Tabs %} {% endblock SNP_Tabs %}
+{% block Current_File %} {% endblock Current_File %}
+{% endblock content %}
 </body>
 </html>

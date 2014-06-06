@@ -1,0 +1,32 @@
+{% extends "SNP_Feature_View/base.html" %}
+{% load staticfiles %}
+{% block title %}Add New{% endblock title %}
+{% block content %}
+
+
+<div class="bs-example">
+  <div class="btn-group btn-group-justified">
+    <a class="btn btn-default" role="button" href="{% url 'add_new_feature_home' %}">Add New Feature Home</a>
+    <a class="btn btn-default active" role="button" href="{% url 'add_new' %}">New Feature!</a>
+    <a class="btn btn-default" role="button" href="{% url 'incomplete_user_submissions' %}">Edit Incomplete Features</a>
+  </div>
+
+
+  <div class="spacer30"></div>
+
+
+<div class="well well-sm">
+	<h4> We're glad you've decided to add a new Feature! To start the process, we'll need the following: </h4> 
+</div>
+
+<form action="/SNP_Feature_View/add_new/" method="post">{% csrf_token %}
+{{ form.as_p }}
+
+<div class="well well-sm">
+	<h4> Submitting will finalize the name of your feature and the name of the associated SNP. We'll add details in the next step. </h4> 
+</div>
+
+<input type="submit" value="Submit" />
+</form>
+
+{% endblock content %}

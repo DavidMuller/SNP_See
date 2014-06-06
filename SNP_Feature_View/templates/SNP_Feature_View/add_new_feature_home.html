@@ -1,0 +1,30 @@
+{% extends "SNP_Feature_View/base.html" %}
+{% load staticfiles %}
+{% block title %}Add New Feature Home{% endblock title %}
+{% block content %}
+
+
+
+<div class="bs-example">
+  <div class="btn-group btn-group-justified">
+    <a class="btn btn-default active" role="button" href="{% url 'add_new_feature_home' %}">Add New Feature Home</a>
+    <a class="btn btn-default" role="button" href="{% url 'add_new' %}">New Feature!</a>
+    <a class="btn btn-default" role="button" href="{% url 'incomplete_user_submissions' %}">Edit Incomplete Features</a>
+  </div>
+
+
+<div class="page-header">
+  <h1>Adding New Features</h1>
+</div>
+<div class="well">
+  <p>Thanks for considering adding a new feature to SNP See. Let us get you up to speed:</p>
+
+  <p>Click the 'New Feature' page to begin the process: you'll name the feature and detail the SNP it's associated with.  Once you've completed this, your SNP will appear in the "Incomplete Features" section, where you'll be able to fill in remaining details about the feature.  After you've submitted your final feature from there, it will be available to view in SNP See as a user submitted feature.  Upon administrator approval, it will be integrated into the 'SNP See Data' track in our visual genome browser, JBrowse.  </p>
+
+  <p>At this point in devlopment, SNP See supports associating a given SNP with just one feature.  Pick a SNP you find interesting, and detail the consequences of its different genotypes.  For instance, maybe a genotype of 'AA' for your SNP results in a malformed protein product.  Tell us about it!</p>
+
+  <p>If your submitted SNP appears in SNP See, but you get a "Heads up!" message saying that your file doesn't have the necessary SNP calls to display your feature, it may be because our server has not yet updated the sample files.  Allow a few hours for this to happen.</p>
+
+</div>
+
+  {% endblock content %}

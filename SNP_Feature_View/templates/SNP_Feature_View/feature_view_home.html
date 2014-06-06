@@ -6,16 +6,23 @@
 <h1>Trying out SNP See</h1>
 
 <div class="jumbotron">
-	<h1>Sample Data</h1>
-	<p class="lead">Want to browse some sample data?</p>
+	<h1>Let's Browse!</h1>
+	<p class="lead">Get started and browse some sample data</p>
 	<a class="btn btn-lg btn-success" href="{% url 'feature_view_sample_data_selector' %}">Sample Data!</a>
 </div>
 
 <div class="jumbotron">
-	<h1>Data Set</h1>
-	<p class="lead">Interested in the data set we've curated for browsing?</p>
-	<a class="btn btn-lg btn-primary" href="{% url 'data_set_characterization' %}">Preliminary Data Set Characterization</a>
+	<h1>Advanced Users... </h1>
+	<p class="lead">Contribute a trait for browsing in SNP See</p>
+	<a class="btn btn-lg btn-default" href="{% url 'add_new_feature_home' %}">Add a Feature</a>
 </div>
+
+<div class="jumbotron">
+	<h1>Database Overview</h1>
+	<p class="lead">Interested in the Data Set?</p>
+	<a class="btn btn-lg btn-primary" href="{% url 'data_set_characterization' %}">A little about the data set</a>
+</div>
+
 
 <div class="jumbotron">
 	<h1>Under Construction...</h1>

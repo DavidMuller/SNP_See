@@ -5,7 +5,6 @@
 <div id="content">
   {% block Feature_View_Nav %}
 
-
   <div class="bs-example">
     <div class="btn-group btn-group-justified">
       <a class="btn btn-default" role="button" href="{% url 'feature_view_sample_data_selector' %}">Switch Data File</a>
@@ -15,8 +14,24 @@
 
     {% endblock Feature_View_Nav %}
 
+    <div class="spacer30"></div>
+
+    {% if status == "U" %}
+    <div class="panel panel-warning">
+      <div class="panel-heading">
+        <h3 class="panel-title">Heads up!</h3>
+      </div>
+      <div class="panel-body">
+        This is a user-submitted feature that has not been approved by an administrator for accuracy.  It will not appear in the visual browser until it is approved.
+      </div>
+    </div>
+    {% endif %}
+
     <h2> {{ phenotype }} </h2>
     <p>Here, we diagram the SNP that determines the following phenotype: {{ phenotype.phenotype}}<p>
+
+
+
 
       <div id="myCarousel" class="carousel" data-ride="carousel" style="width: 700px; 400px; margin: 0 auto" >
         <!-- Indicators -->
@@ -83,6 +98,11 @@
       <!-- Tab panes -->
       <div class="tab-content">
         <div class="tab-pane" id="morphology">
+
+          {% comment "status variable holds approval status of phenotype" %}
+          Only treat treat admin approved content as "| safe" for the webpage.
+          {% endcomment %}
+          {% if status == "A" %}
           <p></p>
           <p>{{ pheno_geno_morphology.morphology | safe }}<p> 
           </div>
@@ -95,42 +115,84 @@
               <p>{{ phenotype.external_resources | safe }}<p> 
               </div>
             </div>
-            <script>
-            $(function () {
+
+
+            {% else %}
+            <p></p>
+            <p>{{ pheno_geno_morphology.morphology }}<p> 
+            </div>
+            <div class="tab-pane active" id="phenotype">
+              <p></p>
+              <p>{{ phenotype.about_phenotype_text }}<p> 
+              </div>
+              <div class="tab-pane" id="externalResources">
+                <p></p>
+                <p>{{ phenotype.external_resources }}<p> 
+                </div>
+              </div>
+              {% endif %}
+
+
+              <script>
+              $(function () {
       $('#myTab a[href="#profile"]').tab('show') // Select tab by name
 
     })
-            </script>
+              </script>
 
-            {% endblock SNP_Tabs %}
-            
-            <div class="page-header">
-              <div class="panel panel-success">
-                <div class="panel-heading">
-                  <h3 class="panel-title">Zoom in!</h3>
+              {% endblock SNP_Tabs %}
+
+              {% if status == "A" %}
+              <div class="page-header">
+                <div class="panel panel-success">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Zoom in!</h3>
+                  </div>
+                  <div class="panel-body">
+                    If you'd like, zoom to this feature in the visual browser.
+                    <p> {% for snp in phenotype.associated_snps.all %}
+                      <a href="{% url 'visual_browser' snp.chromosome_num snp.chromosome_pos_GRCh37%}"> Zoom to {{ phenotype }} ({{ snp.SNP_ID }}) </a>  
+                      {% endfor %}
+                    </p>
+                  </div>
                 </div>
-                <div class="panel-body">
-                  If you'd like, zoom to this feature in the visual browser.  Some features have more than one zoom location because they are governed by more than one SNP.  Try any of them! 
-                  <p> {% for snp in phenotype.associated_snps.all %}
-                    <a href="{% url 'visual_browser' snp.chromosome_num snp.chromosome_pos_GRCh37%}"> Zoom to {{ phenotype }} ({{ snp.SNP_ID }}) </a>  
-                    {% endfor %}
-                  </p>
+                {% endif%}
+
+
+
+                {% if status == "U" %}
+
+                <div class="page-header">
+                  <div class="panel panel-success">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">Zoom in?</h3>
+                    </div>
+                    <div class="panel-body">
+                     This feature has not yet been approved by an administrator, and will not appear on the visual browser.  However, you can still use the link below to see where the {{ phenotype.phenotype }} SNP is in the genome!
+                     <p> {% for snp in phenotype.associated_snps.all %}
+                      <a href="{% url 'visual_browser' snp.chromosome_num snp.chromosome_pos_GRCh37%}"> Zoom to {{ phenotype }} ({{ snp.SNP_ID }}) </a>  
+                      {% endfor %}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              {% block Current_File %} 
-
-              <div class="spacer50"></div>
+                {% endif%}
 
 
-              <div class="panel panel-info">
-                <div class="panel-heading">
-                  <h3 class="panel-title">Where is this data coming from?</h3>
+
+                {% block Current_File %} 
+
+                <div class="spacer50"></div>
+
+
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Where is this data coming from?</h3>
+                  </div>
+                  <div class="panel-body">
+                    You're looking at information gleaned from this {{ file_size }} file: {{ file_name }}. If you'd like to see data for a different file, select one from <a target="_parent" href="{% url 'feature_view_sample_data_selector' %}">here</a>.
+                  </div>
                 </div>
-                <div class="panel-body">
-                  You're looking at information gleaned from this {{ file_size }} file: {{ file_name }}. If you'd like to see data for a different file, select one from <a target="_parent" href="{% url 'feature_view_sample_data_selector' %}">here</a>.
-                </div>
-              </div>
 
-              {% endblock Current_File %}
+                {% endblock Current_File %}
 
-              {% endblock content %}
+                {% endblock content %}
