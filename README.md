@@ -7,7 +7,11 @@ Project Dependencies
 =======
 Built with Django 1.6.5
 
-This project has a dependency (the management script generate_session_data uses it, anyways) on <a href="http://pyvcf.readthedocs.org/en/latest/">PyVCF</a> for parsing VCF files.  PyVCF can be installed with: `pip install pyvcf`
+Dependencies:
+
+<a href="http://pyvcf.readthedocs.org/en/latest/">PyVCF</a> for parsing VCF files.  PyVCF can be installed with: `pip install pyvcf`
+
+<a href="http://biopython.org/wiki/Main_Page">Biopython</a>: `sudo apt-get install python-biopython`
 
 
 JBrowse
@@ -36,7 +40,7 @@ The sample genetic files are in `media/SNP_Feature_View/sample_files`
 
 Django management Scripts
 =======
-We've written 2 management scripts: generate_session_data, and create_SNP_BED_file
+We've written 2 management scripts: `generate_session_data`, and `create_SNP_BED_file`
 
 generate_session_data is invoked with Django as follows: `python manage.py generate_session_data`
 
@@ -45,14 +49,3 @@ It takes all sample files contained in the Django backing database and searches 
 create_SNP_BED_file is invoked with Django as follows: `python create_SNP_BED_file`
 
 It takes the SNP relation maintained by Django, and writes it to a BED file--specifically it writes the file `media/SNP_Feature_View/JBrowse/BED_files/SNP_BED_file.bed`  (That BED file can be incorporated into JBrowse for viewing using JBrowse's bin/flatfile-to-json.pl script.)  
-
-
-
-Backing Database
-=======
-We've made our backing database available for download.  It contains the 4 relations described in SNP_Feature_View/models.py.  It is a small sqlite3 database that can be put into the root directory of this repository for Django to access and use.  You can log in with <i>admin</i> for both the username and password.  It is hosted here: https://drive.google.com/file/d/0B_Z3ZgWqIL8nM0dNZnp6VjExZE0/edit?usp=sharing
-
-Notably, if you'd like to clone our website, and use all the information in our backing database, you'll have to revise the file paths in the SampleFile relation for any sample genetic files you'd like to use (contained in `media/SNP_Feature_View/sample_files`).
-
-
-
