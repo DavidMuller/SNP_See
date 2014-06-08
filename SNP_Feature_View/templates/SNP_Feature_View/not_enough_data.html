@@ -12,7 +12,7 @@
     <div class="panel-body">
       We've looked through {{ file_name }}, but it seems {{ file_name }} actually doesn't contain the base calls necessary for us to determine {{ phenotype.phenotype }}.  If you're interested in learning about {{ phenotype.phenotype }}, you can <a href="{% url 'feature_view_sample_data_selector' %}">try using a different file</a>.  Otherwise, <a href="{% url 'feature_view_select_phenotypes' %}">choose another phenotype to view</a>.
       <p></p>
-      <p>* If you're looking at a recently submitted user feature, allow a few hours for the server to update before viewing the feature, and then be sure to reload whatever file you're browsing at the <a href="{% url 'feature_view_sample_data_selector' %}">switch data file menu</a>.</p>
+      <p>* If you're looking at a recently submitted user feature, allow an hour or so for the server to update before viewing the feature, and then be sure to reload whatever file you're browsing at the <a href="{% url 'feature_view_sample_data_selector' %}">switch data file menu</a>.</p>
     </div>
   </div>
 </div>
