@@ -106,7 +106,7 @@ def feature_view_load_session_data(request, file_name):
         del request.session['SNPs'] 
 
     # read in the specified file
-    with open('media/SNP_Feature_View/sample_files_as_session_data/' + file_name, 'rb') as handle:
+    with open(os.path.join(settings.BASE_DIR, 'media/SNP_Feature_View/sample_files_as_session_data/' + file_name), 'rb') as handle:
         SNPs_dict = pickle.load(handle)
     
     request.session['SNPs'] = SNPs_dict 
