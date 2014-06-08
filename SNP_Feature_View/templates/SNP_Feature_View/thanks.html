@@ -15,6 +15,6 @@
 
 <h3> Your feature will appear in the <a href="{% url 'feature_view_select_phenotypes' %}"> "Browse as List"</a> option of SNP See, under user-submitted features.  (It will not appear on the 'SNP See Data' track of the visual browser until it has been approved by an administrator.)  </h3>
 
-<h3>* Right now, clicking on your trait there may bring up a "Heads Up!" page saying that the file you're browsing doesn't contain the SNP you've just added.  It may take a few hours before the server updates the sample files with the SNP your trait uses.</h3>
+<h3>* Right now, clicking on your trait there may bring up a "Heads Up!" page saying that the file you're browsing doesn't contain the SNP you've just added.  It may take a few hours before the server updates the sample files with the SNP your trait uses.  Be sure to reload the file in the <a href="{% url 'feature_view_sample_data_selector' %}">switch data file menu</a> after an hour or so!</h3>
 
 {% endblock content %}
