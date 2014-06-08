@@ -8,7 +8,10 @@ import pickle
 import vcf
 import os
 import sys
+import datetime
 
+sys.stdout = open('generate_session_data_LOG.txt','w')
+print datetime.datetime.now()
 
 class Command(BaseCommand):
     help = 'For every file in our SampleFile database, pull out the genotypes for SNPs in our SNP database. Pickle them to files we can use as session data.'
