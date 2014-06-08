@@ -1,6 +1,6 @@
 Motivation
 =======
-Read A paper motivating the project <a href="https://docs.google.com/document/d/1e1OTAcXBDfYUHlQQe6CQMhN0SsUHm8ydtAyYgcPLo4k/edit?usp=sharing">here</a>
+Read a paper motivating the project <a href="https://docs.google.com/document/d/1e1OTAcXBDfYUHlQQe6CQMhN0SsUHm8ydtAyYgcPLo4k/edit?usp=sharing">here</a>
 
 
 Project Dependencies
