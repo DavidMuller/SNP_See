@@ -5,9 +5,8 @@ Project motivation can be found in the following paper:
 
 Project Dependencies
 =======
-Built with Django 1.6.5
 
-Dependencies:
+Built with <a href="https://www.djangoproject.com/">Django</a> 1.6.5
 
 <a href="http://pyvcf.readthedocs.org/en/latest/">PyVCF</a> for parsing VCF files.  PyVCF can be installed with: `pip install pyvcf`
 
@@ -18,6 +17,13 @@ JBrowse
 =======
 We used JBrowse 1.11.4 in this project: http://jbrowse.org/
 
+We've uploaded a tar ball with the complete JBrowse 1.11.4 directory we used for the project (formatted with reference tracks, and our custom 'SNP See Data' track): https://drive.google.com/file/d/0B_Z3ZgWqIL8nRXUxVy00LXZBOHc/edit?usp=sharing
+
+
+The JBrowse 1.11.4 folder normally lives in the 'static' folder in the root directory of this repository (next to Bootstrap, and JQuery).  
+
+<h3>Formatting JBrowse From Scratch</h3>
+
 We seeded JBrowse with the (1) GRCh37 human reference sequece, (2) RefSeq genes, and (3) Common SNPs(138).  We've uploaded the source data for those 3 tracks for convenience (fasta files for the reference genomes, BED files for the RefSeq genes and Common SNPs(138)): https://drive.google.com/folderview?id=0B_Z3ZgWqIL8nQld0ZjE4WTRQLW8&usp=sharing
 
 All data was originally downloaded from UCSC--we used the table browser for the RefSeq Genes and Common SNPs(138): http://genome.ucsc.edu/cgi-bin/hgTables?org=human
@@ -26,7 +32,22 @@ All data was originally downloaded from UCSC--we used the table browser for the 
 The source tracks were formatted for use in JBrowse, with JBrowse's `bin/prepare-refseqs.pl` (for the GRCh37 reference sequence), and `bin/flatfile-to-json.pl` for the RefSeq genes and common SNPs.  
 
 
-The JBrowse 1.11.4 folder normally lives in the 'static' folder in the root directory of this repository (next to Bootstrap, and JQuery).  
+Our configuration for the 'SNP See Data' track, contains a bit of custom JavaScript for click actions, so we'll write  out the track configuration below.  Note that, currently, the action loads a page on our development server ('127.0.0.1:8000/SNP_Feature_View...').  Be sure to change this an appropriate URL if you choose to reuse this code. 
+```
+"style" : {
+            "className" : "feature",
+            "arrowheadClass" : "null"
+         },
+"key" : "SNP See Data",
+"storeClass" : "JBrowse/Store/SeqFeature/NCList",
+"trackType" : null,
+"urlTemplate" : "tracks/SNPSee/{refseq}/trackData.json",
+"compress" : 0,
+ "type" : "FeatureTrack",
+"label" : "SNPSee",
+"onClick" :         {
+"action" : "function(track, feature, div) { var $ = window.parent.$, jQuery = window.parent.jQuery; var MyData = {}; MyData.name = this.feature.get('name'); $( document ).ready(function() { $( '#feature_view' ).load('http://127.0.0.1:8000/SNP_Feature_View/feature_view/visual_browser/' + MyData.name + '/');  });  }"
+```
 
 
 'Sample Genetic Data' 
