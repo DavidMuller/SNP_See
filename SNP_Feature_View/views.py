@@ -2,11 +2,12 @@ from django.db.models import Q
 from django.db.models.query import QuerySet
 from django.db.models import Count
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from django.conf import settings
 from django.http import HttpResponseRedirect
-
+from django.core.management import call_command
 
 from SNP_Feature_View.models import Phenotype, Pheno_Geno_Morphology, SNP, SampleFile, SAMPLE_FILES_DIR, SNPStatus, PhenotypeStatus
 from SNP import parse_SNP_genotype, return_SNP_ID, SNP_Fetcher
@@ -317,7 +318,7 @@ def add_new(request):
             ss = SNPStatus(associated_snp=s, status='I')
             ss.save()
 
-            return HttpResponseRedirect('/SNP_Feature_View/incomplete_user_submissions/') # Redirect after POST
+            return redirect('incomplete_user_submissions')# Redirect after POST
     else:
         form = AddFeature() # An unbound form
 
@@ -336,7 +337,7 @@ def edit_incomplete(request, phenotype):
         associated_snp = incomplete.associated_snps.all()[0]
         s = SNP.objects.get(SNP_ID__exact=associated_snp)
     except:
-        return HttpResponseRedirect('/SNP_Feature_View/unavailable_for_editing/')        
+        return redirect('unavailable_for_editing')        
 
     if request.method == 'POST': # If the form has been submitted...
 
@@ -385,7 +386,7 @@ def edit_incomplete(request, phenotype):
             ss.status = 'U'
             ss.save()
 
-            return HttpResponseRedirect('/SNP_Feature_View/thanks/') # Redirect after POST
+            return redirect('thanks') # Redirect after POST
     
     else:
         form = EditIncomplete(initial={'flanking_sequence':s.fasta_sequence,
