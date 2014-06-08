@@ -232,7 +232,7 @@ class EditIncomplete(forms.Form):
                 if about_text == "":
                     raise forms.ValidationError("Woops. You must eneter a description for any genotype you enter.  Be sure to check the extra genotypes you added in the hidden menu below for errors.")
             else:
-                if about_text == "":
+                if about_text != "":
                     raise forms.ValidationError("Woops. You must eneter a genotype for any description you enter.  Be sure to check the extra genotypes you added in the hidden menu below for errors.")
  
 
