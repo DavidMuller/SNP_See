@@ -65,7 +65,9 @@ class SNP_Fetcher:
         for field in fields:
             if self.is_SNP_description(field):
                 pos_number = field.split("=")  # either pos=SOME_NUMBER or allelePos=SOME_NUMBER
-                return int(pos_number[1])
+                if len(pos_number) > 1:
+                    if len(pos_number[1]) > 0:
+                        return int(pos_number[1])
 
     def set_SNP_fields(self, fasta_string):
         """Given ONE Fasta sequence as a string, set SNP's field's."""
