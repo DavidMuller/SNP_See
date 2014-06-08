@@ -1,5 +1,7 @@
+#!/usr/bin/env python
 from django.core.management.base import BaseCommand, CommandError
 from SNP_Feature_View.models import SNP
+from django.conf import settings
 
 import os
 import sys
@@ -18,7 +20,7 @@ class BEDFileGenerator():
 	
 	def __init__(self):
 		"""Define the path to our SNP BED file."""
-		self.file_dir = 'media/SNP_Feature_View/JBrowse/BED_files/'
+		self.file_dir = os.path.join(settings.BASE_DIR, 'media/SNP_Feature_View/JBrowse/BED_files/')
 		self.file_name = 'SNP_BED_file.bed'
 		self.file_path = self.file_dir + self.file_name
 

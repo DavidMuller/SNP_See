@@ -1,6 +1,8 @@
+#!/usr/bin/env python
 from django.core.management.base import BaseCommand, CommandError
 from django.db.models import Q
 from SNP_Feature_View.models import SNP, SNPStatus, SampleFile
+from django.conf import settings
 
 import pickle
 import vcf
@@ -22,10 +24,10 @@ class Command(BaseCommand):
 class SessionDataGenerator():
 	def __init__(self, file_name, file_type):
 		"""Define path to sample files, and a path to the new session data files. Determine if file is VCF or 23+Me."""
-		self.raw_data_file_dir = 'media/SNP_Feature_View/sample_files/'
+		self.raw_data_file_dir = os.path.join(settings.BASE_DIR, 'media/SNP_Feature_View/sample_files/')
 		self.raw_data_file_path = self.raw_data_file_dir + file_name
 
-		self.session_data_file_dir = 'media/SNP_Feature_View/sample_files_as_session_data/'
+		self.session_data_file_dir = os.path.join(settings.BASE_DIR, 'media/SNP_Feature_View/sample_files_as_session_data/')
 		self.session_data_file_path = self.session_data_file_dir + file_name
 
 		# fill out a SNP calls dictionary
