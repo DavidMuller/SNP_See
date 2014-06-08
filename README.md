@@ -1,11 +1,11 @@
 Site
 =======
-Try SNP See out: http://bioinformaticslab.ucsd.edu/~dmuller/SNP_Feature_View/"
+Try SNP See out: http://bioinformaticslab.ucsd.edu/~dmuller/SNP_Feature_View/
 
 
 Motivation
 =======
-SNP See aims to provide the layman and researcher with a free tool for learning about sequence data by highlighting simple, high-level phenotypes discernible from inputted genomic files (VCF and similar)
+SNP See aims to provide the layman and researcher with a free tool for learning about sequence data by highlighting SNP-determined genetic traits from inputted genomic files (VCF and similar)
 
 Read a paper motivating the project <a href="https://docs.google.com/document/d/1e1OTAcXBDfYUHlQQe6CQMhN0SsUHm8ydtAyYgcPLo4k/edit?usp=sharing">here</a>
 
